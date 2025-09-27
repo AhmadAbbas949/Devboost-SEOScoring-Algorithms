@@ -1,252 +1,252 @@
 [
-{
-"id": 1,
-"title": "Eco-Friendly Bamboo Toothbrush",
-"description": "A sustainable toothbrush made from 100% biodegradable bamboo. Designed to be eco-friendly, durable, and safe for daily use."
-},
-{
-"id": 2,
-"title": "Luxury Leather Handbag",
-"description": "Handcrafted premium leather handbag with elegant design. Perfect for luxury fashion lovers."
-},
-{
-"id": 3,
-"title": "Organic Cotton T-Shirt",
-"description": "A soft, sustainable cotton t-shirt. Perfect for everyday wear. This eco-friendly shirt is both stylish and durable."
-},
-{
-"id": 4,
-"title": "Wireless Earbuds",
-"description": "High-quality earbuds with noise cancellation, long battery life, and modern design. Perfect for music and calls."
-},
-{
-"id": 5,
-"title": "Luxury Perfume",
-"description": "Premium fragrance with unique floral notes. Designed for customers who enjoy exclusive luxury scents."
-},
-{
-"id": 6,
-"title": "Sustainable Water Bottle",
-"description": "A reusable eco-friendly water bottle made from stainless steel. Keeps drinks cold for 24 hours and hot for 12."
-},
-{
-"id": 7,
-"title": "Premium Running Shoes",
-"description": "Engineered with lightweight materials for comfort and performance. Designed for professional runners who value premium quality."
-},
-{
-"id": 8,
-"title": "Eco-Friendly Yoga Mat",
-"description": "A sustainable yoga mat made from recycled materials. Non-slip surface for safe, eco-conscious practice."
-},
-{
-"id": 9,
-"title": "Luxury Silk Scarf",
-"description": "An elegant scarf crafted from 100% premium silk. Soft, luxurious, and timeless."
-},
-{
-"id": 10,
-"title": "Smart Home Speaker",
-"description": "Voice-controlled speaker with premium sound quality. Connects to smart devices for seamless home automation."
-},
-{
-"id": 11,
-"title": "Eco-Friendly Laundry Detergent",
-"description": "Plant-based detergent with biodegradable ingredients. A sustainable choice for eco-conscious households."
-},
-{
-"id": 12,
-"title": "Premium Coffee Beans",
-"description": "Hand-roasted premium coffee beans sourced ethically from sustainable farms. Perfect for true coffee lovers."
-},
-{
-"id": 13,
-"title": "Luxury Watch",
-"description": "Swiss-made premium luxury watch with sapphire glass. Built for timeless elegance and durability."
-},
-{
-"id": 14,
-"title": "Sustainable Backpack",
-"description": "Durable backpack made from recycled plastics. Stylish, eco-friendly, and perfect for daily use."
-},
-{
-"id": 15,
-"title": "Premium Wireless Headphones",
-"description": "Noise-cancelling headphones with premium comfort. Ideal for luxury travel and professional use."
-},
-{
-"id": 16,
-"title": "Eco-Friendly Notebook",
-"description": "A sustainable notebook made with recycled paper and eco-friendly ink. Perfect for conscious creatives."
-},
-{
-"id": 17,
-"title": "Luxury Skincare Set",
-"description": "Premium skincare kit with organic ingredients. Designed for luxury self-care routines."
-},
-{
-"id": 18,
-"title": "Sustainable Sunglasses",
-"description": "Eco-friendly sunglasses made from recycled wood. Stylish, durable, and sustainable."
-},
-{
-"id": 19,
-"title": "Premium Office Chair",
-"description": "Ergonomic chair with premium leather finish. Designed for comfort and long work hours."
-},
-{
-"id": 20,
-"title": "Luxury Bedding Set",
-"description": "Premium Egyptian cotton bedding with luxury comfort. Perfect for a restful and elegant bedroom."
-},
-{
-"id": 21,
-"title": "Eco-Friendly Cleaning Spray",
-"description": "Non-toxic, biodegradable spray that's sustainable and safe for the environment."
-},
-{
-"id": 22,
-"title": "Premium Mountain Bike",
-"description": "High-performance mountain bike with premium parts. Designed for professionals and enthusiasts."
-},
-{
-"id": 23,
-"title": "Luxury Wine Glass Set",
-"description": "Hand-blown crystal glasses designed for luxury dining experiences."
-},
-{
-"id": 24,
-"title": "Sustainable Sneakers",
-"description": "Shoes made from recycled ocean plastics. Comfortable, stylish, and eco-friendly."
-},
-{
-"id": 25,
-"title": "Premium Gaming Laptop",
-"description": "High-speed gaming laptop with premium graphics. Perfect for professional gamers."
-},
-{
-"id": 26,
-"title": "Luxury Spa Kit",
-"description": "A premium collection of skincare and aromatherapy products for luxury home spa experiences."
-},
-{
-"id": 27,
-"title": "Eco-Friendly Backpack",
-"description": "Durable backpack made with recycled fabric. Sustainable and stylish for daily use."
-},
-{
-"id": 28,
-"title": "Premium Fountain Pen",
-"description": "Handcrafted luxury pen with premium ink flow and elegant design."
-},
-{
-"id": 29,
-"title": "Luxury Sofa",
-"description": "Premium Italian leather sofa designed for comfort and luxury living rooms."
-},
-{
-"id": 30,
-"title": "Sustainable Gardening Kit",
-"description": "Eco-friendly gardening set with biodegradable pots and organic soil. Perfect for sustainable living."
-},
-{
-"id": 31,
-"title": "Premium Road Bike",
-"description": "Lightweight premium road bike built for speed and durability."
-},
-{
-"id": 32,
-"title": "Luxury Candle Set",
-"description": "Handcrafted candles with premium fragrances. Ideal for luxury home décor."
-},
-{
-"id": 33,
-"title": "Eco-Friendly Laptop Sleeve",
-"description": "Sustainable laptop sleeve made from recycled materials. Durable and stylish."
-},
-{
-"id": 34,
-"title": "Premium Whiskey",
-"description": "Aged whiskey with premium flavor. Crafted for luxury connoisseurs."
-},
-{
-"id": 35,
-"title": "Luxury Kitchen Knife Set",
-"description": "Hand-forged knives with premium steel. Designed for luxury kitchens."
-},
-{
-"id": 36,
-"title": "Sustainable Phone Case",
-"description": "Biodegradable phone case made with plant-based materials. A sustainable alternative to plastic."
-},
-{
-"id": 37,
-"title": "Premium Desk Lamp",
-"description": "Modern lamp with premium finish and energy-efficient design."
-},
-{
-"id": 38,
-"title": "Luxury Bathrobe",
-"description": "Soft bathrobe made with premium cotton for luxury comfort."
-},
-{
-"id": 39,
-"title": "Eco-Friendly Grocery Bags",
-"description": "Reusable shopping bags made from recycled fabrics. A sustainable choice for eco-conscious buyers."
-},
-{
-"id": 40,
-"title": "Premium Soundbar",
-"description": "High-fidelity sound system with premium bass. Perfect for luxury home theaters."
-},
-{
-"id": 41,
-"title": "Luxury Eyewear",
-"description": "Designer sunglasses with premium craftsmanship. A luxury accessory for fashion lovers."
-},
-{
-"id": 42,
-"title": "Eco-Friendly Coffee Cup",
-"description": "Reusable bamboo coffee cup. Sustainable, lightweight, and eco-conscious."
-},
-{
-"id": 43,
-"title": "Premium Mattress",
-"description": "Memory foam mattress with premium comfort. Designed for luxury sleep."
-},
-{
-"id": 44,
-"title": "Luxury Travel Bag",
-"description": "Handmade leather travel bag for premium jetsetters."
-},
-{
-"id": 45,
-"title": "Sustainable Cutlery Set",
-"description": "Reusable cutlery made with eco-friendly bamboo. A sustainable dining choice."
-},
-{
-"id": 46,
-"title": "Premium Gaming Chair",
-"description": "Ergonomic chair with premium materials. Perfect for professional gamers."
-},
-{
-"id": 47,
-"title": "Luxury Diamond Ring",
-"description": "A handcrafted diamond ring with premium stones. Symbol of elegance and luxury."
-},
-{
-"id": 48,
-"title": "Eco-Friendly Dog Bed",
-"description": "Pet bed made with sustainable fabrics. Comfortable, durable, and eco-friendly."
-},
-{
-"id": 49,
-"title": "Premium Winter Jacket",
-"description": "Insulated jacket made with premium materials. Designed for warmth and style."
-},
-{
-"id": 50,
-"title": "Luxury Car Wax",
-"description": "Premium wax for luxury cars. Provides high gloss and long-lasting protection."
-}
+  {
+    "id": 1,
+    "title": "Eco-Friendly Bamboo Toothbrush",
+    "description": "A sustainable toothbrush made from 100% biodegradable bamboo. Designed to be eco-friendly, durable, and safe for daily use."
+  },
+  {
+    "id": 2,
+    "title": "Luxury Leather Handbag",
+    "description": "Handcrafted premium leather handbag with elegant design. Perfect for luxury fashion lovers."
+  },
+  {
+    "id": 3,
+    "title": "Organic Cotton T-Shirt",
+    "description": "A soft, sustainable cotton t-shirt. Perfect for everyday wear. This eco-friendly shirt is both stylish and durable."
+  },
+  {
+    "id": 4,
+    "title": "Wireless Earbuds",
+    "description": "High-quality earbuds with noise cancellation, long battery life, and modern design. Perfect for music and calls."
+  },
+  {
+    "id": 5,
+    "title": "Luxury Perfume",
+    "description": "Premium fragrance with unique floral notes. Designed for customers who enjoy exclusive luxury scents."
+  },
+  {
+    "id": 6,
+    "title": "Sustainable Water Bottle",
+    "description": "A reusable eco-friendly water bottle made from stainless steel. Keeps drinks cold for 24 hours and hot for 12."
+  },
+  {
+    "id": 7,
+    "title": "Premium Running Shoes",
+    "description": "Engineered with lightweight materials for comfort and performance. Designed for professional runners who value premium quality."
+  },
+  {
+    "id": 8,
+    "title": "Eco-Friendly Yoga Mat",
+    "description": "A sustainable yoga mat made from recycled materials. Non-slip surface for safe, eco-conscious practice."
+  },
+  {
+    "id": 9,
+    "title": "Luxury Silk Scarf",
+    "description": "An elegant scarf crafted from 100% premium silk. Soft, luxurious, and timeless."
+  },
+  {
+    "id": 10,
+    "title": "Smart Home Speaker",
+    "description": "Voice-controlled speaker with premium sound quality. Connects to smart devices for seamless home automation."
+  },
+  {
+    "id": 11,
+    "title": "Eco-Friendly Laundry Detergent",
+    "description": "Plant-based detergent with biodegradable ingredients. A sustainable choice for eco-conscious households."
+  },
+  {
+    "id": 12,
+    "title": "Premium Coffee Beans",
+    "description": "Hand-roasted premium coffee beans sourced ethically from sustainable farms. Perfect for true coffee lovers."
+  },
+  {
+    "id": 13,
+    "title": "Luxury Watch",
+    "description": "Swiss-made premium luxury watch with sapphire glass. Built for timeless elegance and durability."
+  },
+  {
+    "id": 14,
+    "title": "Sustainable Backpack",
+    "description": "Durable backpack made from recycled plastics. Stylish, eco-friendly, and perfect for daily use."
+  },
+  {
+    "id": 15,
+    "title": "Premium Wireless Headphones",
+    "description": "Noise-cancelling headphones with premium comfort. Ideal for luxury travel and professional use."
+  },
+  {
+    "id": 16,
+    "title": "Eco-Friendly Notebook",
+    "description": "A sustainable notebook made with recycled paper and eco-friendly ink. Perfect for conscious creatives."
+  },
+  {
+    "id": 17,
+    "title": "Luxury Skincare Set",
+    "description": "Premium skincare kit with organic ingredients. Designed for luxury self-care routines."
+  },
+  {
+    "id": 18,
+    "title": "Sustainable Sunglasses",
+    "description": "Eco-friendly sunglasses made from recycled wood. Stylish, durable, and sustainable."
+  },
+  {
+    "id": 19,
+    "title": "Premium Office Chair",
+    "description": "Ergonomic chair with premium leather finish. Designed for comfort and long work hours."
+  },
+  {
+    "id": 20,
+    "title": "Luxury Bedding Set",
+    "description": "Premium Egyptian cotton bedding with luxury comfort. Perfect for a restful and elegant bedroom."
+  },
+  {
+    "id": 21,
+    "title": "Eco-Friendly Cleaning Spray",
+    "description": "Non-toxic, biodegradable spray that’s sustainable and safe for the environment."
+  },
+  {
+    "id": 22,
+    "title": "Premium Mountain Bike",
+    "description": "High-performance mountain bike with premium parts. Designed for professionals and enthusiasts."
+  },
+  {
+    "id": 23,
+    "title": "Luxury Wine Glass Set",
+    "description": "Hand-blown crystal glasses designed for luxury dining experiences."
+  },
+  {
+    "id": 24,
+    "title": "Sustainable Sneakers",
+    "description": "Shoes made from recycled ocean plastics. Comfortable, stylish, and eco-friendly."
+  },
+  {
+    "id": 25,
+    "title": "Premium Gaming Laptop",
+    "description": "High-speed gaming laptop with premium graphics. Perfect for professional gamers."
+  },
+  {
+    "id": 26,
+    "title": "Luxury Spa Kit",
+    "description": "A premium collection of skincare and aromatherapy products for luxury home spa experiences."
+  },
+  {
+    "id": 27,
+    "title": "Eco-Friendly Backpack",
+    "description": "Durable backpack made with recycled fabric. Sustainable and stylish for daily use."
+  },
+  {
+    "id": 28,
+    "title": "Premium Fountain Pen",
+    "description": "Handcrafted luxury pen with premium ink flow and elegant design."
+  },
+  {
+    "id": 29,
+    "title": "Luxury Sofa",
+    "description": "Premium Italian leather sofa designed for comfort and luxury living rooms."
+  },
+  {
+    "id": 30,
+    "title": "Sustainable Gardening Kit",
+    "description": "Eco-friendly gardening set with biodegradable pots and organic soil. Perfect for sustainable living."
+  },
+  {
+    "id": 31,
+    "title": "Premium Road Bike",
+    "description": "Lightweight premium road bike built for speed and durability."
+  },
+  {
+    "id": 32,
+    "title": "Luxury Candle Set",
+    "description": "Handcrafted candles with premium fragrances. Ideal for luxury home décor."
+  },
+  {
+    "id": 33,
+    "title": "Eco-Friendly Laptop Sleeve",
+    "description": "Sustainable laptop sleeve made from recycled materials. Durable and stylish."
+  },
+  {
+    "id": 34,
+    "title": "Premium Whiskey",
+    "description": "Aged whiskey with premium flavor. Crafted for luxury connoisseurs."
+  },
+  {
+    "id": 35,
+    "title": "Luxury Kitchen Knife Set",
+    "description": "Hand-forged knives with premium steel. Designed for luxury kitchens."
+  },
+  {
+    "id": 36,
+    "title": "Sustainable Phone Case",
+    "description": "Biodegradable phone case made with plant-based materials. A sustainable alternative to plastic."
+  },
+  {
+    "id": 37,
+    "title": "Premium Desk Lamp",
+    "description": "Modern lamp with premium finish and energy-efficient design."
+  },
+  {
+    "id": 38,
+    "title": "Luxury Bathrobe",
+    "description": "Soft bathrobe made with premium cotton for luxury comfort."
+  },
+  {
+    "id": 39,
+    "title": "Eco-Friendly Grocery Bags",
+    "description": "Reusable shopping bags made from recycled fabrics. A sustainable choice for eco-conscious buyers."
+  },
+  {
+    "id": 40,
+    "title": "Premium Soundbar",
+    "description": "High-fidelity sound system with premium bass. Perfect for luxury home theaters."
+  },
+  {
+    "id": 41,
+    "title": "Luxury Eyewear",
+    "description": "Designer sunglasses with premium craftsmanship. A luxury accessory for fashion lovers."
+  },
+  {
+    "id": 42,
+    "title": "Eco-Friendly Coffee Cup",
+    "description": "Reusable bamboo coffee cup. Sustainable, lightweight, and eco-conscious."
+  },
+  {
+    "id": 43,
+    "title": "Premium Mattress",
+    "description": "Memory foam mattress with premium comfort. Designed for luxury sleep."
+  },
+  {
+    "id": 44,
+    "title": "Luxury Travel Bag",
+    "description": "Handmade leather travel bag for premium jetsetters."
+  },
+  {
+    "id": 45,
+    "title": "Sustainable Cutlery Set",
+    "description": "Reusable cutlery made with eco-friendly bamboo. A sustainable dining choice."
+  },
+  {
+    "id": 46,
+    "title": "Premium Gaming Chair",
+    "description": "Ergonomic chair with premium materials. Perfect for professional gamers."
+  },
+  {
+    "id": 47,
+    "title": "Luxury Diamond Ring",
+    "description": "A handcrafted diamond ring with premium stones. Symbol of elegance and luxury."
+  },
+  {
+    "id": 48,
+    "title": "Eco-Friendly Dog Bed",
+    "description": "Pet bed made with sustainable fabrics. Comfortable, durable, and eco-friendly."
+  },
+  {
+    "id": 49,
+    "title": "Premium Winter Jacket",
+    "description": "Insulated jacket made with premium materials. Designed for warmth and style."
+  },
+  {
+    "id": 50,
+    "title": "Luxury Car Wax",
+    "description": "Premium wax for luxury cars. Provides high gloss and long-lasting protection."
+  }
 ]

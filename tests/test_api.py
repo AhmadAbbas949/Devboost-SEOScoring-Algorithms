@@ -37,43 +37,52 @@ class TestAPI:
         data = response.json()
 
         assert "results" in data
-        assert "summary" in data
         assert len(data["results"]) == 2
 
         # Check structure of results
         for result in data["results"]:
-            assert "text" in result
+            assert "description" in result
             assert "readability" in result
             assert "keyword_density" in result
-            assert "uniqueness" in result
-            assert "overall_score" in result
-            assert "text_index" in result
+            assert "similarity" in result
 
-        # Check summary structure
-        summary = data["summary"]
-        assert "total_descriptions" in summary
-        assert "average_scores" in summary
-        assert "quality_distribution" in summary
+            # Check readability structure
+            readability = result["readability"]
+            assert "avg_word_length" in readability
+            assert "avg_sentence_length" in readability
+
+            # Check keyword density structure
+            keyword_density = result["keyword_density"]
+            assert "eco_friendly" in keyword_density
+            assert "sustainable" in keyword_density
+            assert "premium" in keyword_density
+            assert "luxury" in keyword_density
+
+            # Check similarity structure
+            similarity = result["similarity"]
+            assert "uniqueness_score" in similarity
+            assert "is_duplicate" in similarity
+            assert "max_similarity" in similarity
 
     def test_analyze_endpoint_custom_keywords(self):
-        """Test /analyze endpoint with custom keywords."""
-        input_with_keywords = {
-            "descriptions": ["Premium handcrafted leather bag with elegant design."],
-            "keywords": ["premium", "handcrafted", "elegant"]
+        """Test /analyze endpoint - note: now uses fixed keywords."""
+        input_data = {
+            "descriptions": ["Premium eco-friendly sustainable luxury handbag."]
         }
 
-        response = self.client.post("/analyze", json=input_with_keywords)
+        response = self.client.post("/analyze", json=input_data)
 
         assert response.status_code == 200
         data = response.json()
 
         result = data["results"][0]
-        keyword_densities = result["keyword_density"]["keyword_densities"]
+        keyword_density = result["keyword_density"]
 
-        # Should include custom keywords
-        assert "premium" in keyword_densities
-        assert "handcrafted" in keyword_densities
-        assert "elegant" in keyword_densities
+        # Should use fixed keywords and detect them
+        assert keyword_density["premium"] > 0
+        assert keyword_density["eco_friendly"] > 0
+        assert keyword_density["sustainable"] > 0
+        assert keyword_density["luxury"] > 0
 
     def test_analyze_endpoint_empty_descriptions(self):
         """Test /analyze endpoint with empty descriptions list."""
@@ -133,8 +142,7 @@ class TestAPI:
 
         assert "message" in data
         assert "results" in data
-        assert "summary" in data
-        assert len(data["results"]) == 5  # First 5 products
+        assert len(data["results"]) == 10  # First 10 products
 
     def test_docs_endpoint(self):
         """Test that API documentation is accessible."""
@@ -180,17 +188,23 @@ class TestAPI:
 
         result = data["results"][0]
 
-        # Check numeric types
-        assert isinstance(result["overall_score"], (int, float))
-        assert isinstance(result["readability"]["readability_score"], (int, float))
-        assert isinstance(result["keyword_density"]["density_score"], (int, float))
-        assert isinstance(result["uniqueness"]["uniqueness_score"], (int, float))
+        # Check numeric types for readability
+        assert isinstance(result["readability"]["avg_word_length"], (int, float))
+        assert isinstance(result["readability"]["avg_sentence_length"], (int, float))
+
+        # Check numeric types for keyword density
+        assert isinstance(result["keyword_density"]["eco_friendly"], (int, float))
+        assert isinstance(result["keyword_density"]["sustainable"], (int, float))
+        assert isinstance(result["keyword_density"]["premium"], (int, float))
+        assert isinstance(result["keyword_density"]["luxury"], (int, float))
+
+        # Check numeric types for similarity
+        assert isinstance(result["similarity"]["uniqueness_score"], (int, float))
+        assert isinstance(result["similarity"]["max_similarity"], (int, float))
+        assert isinstance(result["similarity"]["is_duplicate"], bool)
 
         # Check string types
-        assert isinstance(result["text"], str)
-        assert isinstance(result["readability"]["interpretation"], str)
-        assert isinstance(result["keyword_density"]["interpretation"], str)
-        assert isinstance(result["uniqueness"]["interpretation"], str)
+        assert isinstance(result["description"], str)
 
     def test_score_ranges(self):
         """Test that all scores are within expected ranges."""
@@ -198,15 +212,19 @@ class TestAPI:
         data = response.json()
 
         for result in data["results"]:
-            # All scores should be between 0 and 1
-            assert 0 <= result["overall_score"] <= 1
-            assert 0 <= result["readability"]["readability_score"] <= 1
-            assert 0 <= result["keyword_density"]["density_score"] <= 1
-            assert 0 <= result["uniqueness"]["uniqueness_score"] <= 1
+            # Similarity scores should be between 0 and 1
+            assert 0 <= result["similarity"]["uniqueness_score"] <= 1
+            assert 0 <= result["similarity"]["max_similarity"] <= 1
+
+            # Readability values should be positive
+            assert result["readability"]["avg_word_length"] > 0
+            assert result["readability"]["avg_sentence_length"] > 0
 
             # Keyword density percentages should be non-negative
-            for density in result["keyword_density"]["keyword_densities"].values():
-                assert density >= 0
+            assert result["keyword_density"]["eco_friendly"] >= 0
+            assert result["keyword_density"]["sustainable"] >= 0
+            assert result["keyword_density"]["premium"] >= 0
+            assert result["keyword_density"]["luxury"] >= 0
 
     def test_multiple_descriptions_uniqueness(self):
         """Test that uniqueness scores work correctly with multiple descriptions."""
@@ -225,5 +243,11 @@ class TestAPI:
         results = data["results"]
 
         # The third description should be more unique
-        assert results[2]["uniqueness"]["uniqueness_score"] > results[0]["uniqueness"]["uniqueness_score"]
-        assert results[2]["uniqueness"]["uniqueness_score"] > results[1]["uniqueness"]["uniqueness_score"]
+        assert results[2]["similarity"]["uniqueness_score"] > results[0]["similarity"]["uniqueness_score"]
+        assert results[2]["similarity"]["uniqueness_score"] > results[1]["similarity"]["uniqueness_score"]
+
+        # First two should be flagged as duplicates (high similarity)
+        assert results[0]["similarity"]["is_duplicate"] or results[1]["similarity"]["is_duplicate"]
+
+        # Third should not be a duplicate
+        assert not results[2]["similarity"]["is_duplicate"]

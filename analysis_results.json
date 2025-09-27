@@ -1,0 +1,1021 @@
+{
+  "summary": {
+    "total_products_analyzed": 50,
+    "duplicates_found": 0,
+    "duplicate_percentage": 0.0,
+    "unique_products": 50,
+    "keyword_usage": {
+      "eco_friendly": 10,
+      "sustainable": 16,
+      "premium": 30,
+      "luxury": 19
+    },
+    "readability_averages": {
+      "avg_word_length": 5.93,
+      "avg_sentence_length": 6.95
+    }
+  },
+  "results": [
+    {
+      "product_id": 1,
+      "title": "Eco-Friendly Bamboo Toothbrush",
+      "description": "A sustainable toothbrush made from 100% biodegradable bamboo. Designed to be eco-friendly, durable, and safe for daily use.",
+      "readability": {
+        "avg_word_length": 5.39,
+        "avg_sentence_length": 9.0
+      },
+      "keyword_density": {
+        "eco_friendly": 5.56,
+        "sustainable": 5.56,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.523,
+        "is_duplicate": false,
+        "max_similarity": 0.477
+      }
+    },
+    {
+      "product_id": 2,
+      "title": "Luxury Leather Handbag",
+      "description": "Handcrafted premium leather handbag with elegant design. Perfect for luxury fashion lovers.",
+      "readability": {
+        "avg_word_length": 6.5,
+        "avg_sentence_length": 6.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 8.33,
+        "luxury": 8.33
+      },
+      "similarity": {
+        "uniqueness_score": 0.441,
+        "is_duplicate": false,
+        "max_similarity": 0.559
+      }
+    },
+    {
+      "product_id": 3,
+      "title": "Organic Cotton T-Shirt",
+      "description": "A soft, sustainable cotton t-shirt. Perfect for everyday wear. This eco-friendly shirt is both stylish and durable.",
+      "readability": {
+        "avg_word_length": 4.89,
+        "avg_sentence_length": 6.33
+      },
+      "keyword_density": {
+        "eco_friendly": 5.26,
+        "sustainable": 5.26,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.544,
+        "is_duplicate": false,
+        "max_similarity": 0.456
+      }
+    },
+    {
+      "product_id": 4,
+      "title": "Wireless Earbuds",
+      "description": "High-quality earbuds with noise cancellation, long battery life, and modern design. Perfect for music and calls.",
+      "readability": {
+        "avg_word_length": 5.41,
+        "avg_sentence_length": 8.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.79,
+        "is_duplicate": false,
+        "max_similarity": 0.21
+      }
+    },
+    {
+      "product_id": 5,
+      "title": "Luxury Perfume",
+      "description": "Premium fragrance with unique floral notes. Designed for customers who enjoy exclusive luxury scents.",
+      "readability": {
+        "avg_word_length": 6.14,
+        "avg_sentence_length": 7.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 7.14,
+        "luxury": 7.14
+      },
+      "similarity": {
+        "uniqueness_score": 0.68,
+        "is_duplicate": false,
+        "max_similarity": 0.32
+      }
+    },
+    {
+      "product_id": 6,
+      "title": "Sustainable Water Bottle",
+      "description": "A reusable eco-friendly water bottle made from stainless steel. Keeps drinks cold for 24 hours and hot for 12.",
+      "readability": {
+        "avg_word_length": 4.72,
+        "avg_sentence_length": 9.0
+      },
+      "keyword_density": {
+        "eco_friendly": 5.56,
+        "sustainable": 0.0,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.694,
+        "is_duplicate": false,
+        "max_similarity": 0.306
+      }
+    },
+    {
+      "product_id": 7,
+      "title": "Premium Running Shoes",
+      "description": "Engineered with lightweight materials for comfort and performance. Designed for professional runners who value premium quality.",
+      "readability": {
+        "avg_word_length": 6.88,
+        "avg_sentence_length": 8.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 6.25,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.658,
+        "is_duplicate": false,
+        "max_similarity": 0.342
+      }
+    },
+    {
+      "product_id": 8,
+      "title": "Eco-Friendly Yoga Mat",
+      "description": "A sustainable yoga mat made from recycled materials. Non-slip surface for safe, eco-conscious practice.",
+      "readability": {
+        "avg_word_length": 5.31,
+        "avg_sentence_length": 8.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 6.25,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.635,
+        "is_duplicate": false,
+        "max_similarity": 0.365
+      }
+    },
+    {
+      "product_id": 9,
+      "title": "Luxury Silk Scarf",
+      "description": "An elegant scarf crafted from 100% premium silk. Soft, luxurious, and timeless.",
+      "readability": {
+        "avg_word_length": 5.45,
+        "avg_sentence_length": 5.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 9.09,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.711,
+        "is_duplicate": false,
+        "max_similarity": 0.289
+      }
+    },
+    {
+      "product_id": 10,
+      "title": "Smart Home Speaker",
+      "description": "Voice-controlled speaker with premium sound quality. Connects to smart devices for seamless home automation.",
+      "readability": {
+        "avg_word_length": 6.13,
+        "avg_sentence_length": 7.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 6.67,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.711,
+        "is_duplicate": false,
+        "max_similarity": 0.289
+      }
+    },
+    {
+      "product_id": 11,
+      "title": "Eco-Friendly Laundry Detergent",
+      "description": "Plant-based detergent with biodegradable ingredients. A sustainable choice for eco-conscious households.",
+      "readability": {
+        "avg_word_length": 6.92,
+        "avg_sentence_length": 6.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 7.69,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.578,
+        "is_duplicate": false,
+        "max_similarity": 0.422
+      }
+    },
+    {
+      "product_id": 12,
+      "title": "Premium Coffee Beans",
+      "description": "Hand-roasted premium coffee beans sourced ethically from sustainable farms. Perfect for true coffee lovers.",
+      "readability": {
+        "avg_word_length": 6.07,
+        "avg_sentence_length": 7.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 6.67,
+        "premium": 6.67,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.726,
+        "is_duplicate": false,
+        "max_similarity": 0.274
+      }
+    },
+    {
+      "product_id": 13,
+      "title": "Luxury Watch",
+      "description": "Swiss-made premium luxury watch with sapphire glass. Built for timeless elegance and durability.",
+      "readability": {
+        "avg_word_length": 5.79,
+        "avg_sentence_length": 7.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 7.14,
+        "luxury": 7.14
+      },
+      "similarity": {
+        "uniqueness_score": 0.641,
+        "is_duplicate": false,
+        "max_similarity": 0.359
+      }
+    },
+    {
+      "product_id": 14,
+      "title": "Sustainable Backpack",
+      "description": "Durable backpack made from recycled plastics. Stylish, eco-friendly, and perfect for daily use.",
+      "readability": {
+        "avg_word_length": 5.57,
+        "avg_sentence_length": 7.0
+      },
+      "keyword_density": {
+        "eco_friendly": 7.14,
+        "sustainable": 0.0,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.329,
+        "is_duplicate": false,
+        "max_similarity": 0.671
+      }
+    },
+    {
+      "product_id": 15,
+      "title": "Premium Wireless Headphones",
+      "description": "Noise-cancelling headphones with premium comfort. Ideal for luxury travel and professional use.",
+      "readability": {
+        "avg_word_length": 6.23,
+        "avg_sentence_length": 6.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 7.69,
+        "luxury": 7.69
+      },
+      "similarity": {
+        "uniqueness_score": 0.613,
+        "is_duplicate": false,
+        "max_similarity": 0.387
+      }
+    },
+    {
+      "product_id": 16,
+      "title": "Eco-Friendly Notebook",
+      "description": "A sustainable notebook made with recycled paper and eco-friendly ink. Perfect for conscious creatives.",
+      "readability": {
+        "avg_word_length": 5.73,
+        "avg_sentence_length": 7.5
+      },
+      "keyword_density": {
+        "eco_friendly": 6.67,
+        "sustainable": 6.67,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.553,
+        "is_duplicate": false,
+        "max_similarity": 0.447
+      }
+    },
+    {
+      "product_id": 17,
+      "title": "Luxury Skincare Set",
+      "description": "Premium skincare kit with organic ingredients. Designed for luxury self-care routines.",
+      "readability": {
+        "avg_word_length": 6.08,
+        "avg_sentence_length": 6.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 8.33,
+        "luxury": 8.33
+      },
+      "similarity": {
+        "uniqueness_score": 0.665,
+        "is_duplicate": false,
+        "max_similarity": 0.335
+      }
+    },
+    {
+      "product_id": 18,
+      "title": "Sustainable Sunglasses",
+      "description": "Eco-friendly sunglasses made from recycled wood. Stylish, durable, and sustainable.",
+      "readability": {
+        "avg_word_length": 6.27,
+        "avg_sentence_length": 5.5
+      },
+      "keyword_density": {
+        "eco_friendly": 9.09,
+        "sustainable": 9.09,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.441,
+        "is_duplicate": false,
+        "max_similarity": 0.559
+      }
+    },
+    {
+      "product_id": 19,
+      "title": "Premium Office Chair",
+      "description": "Ergonomic chair with premium leather finish. Designed for comfort and long work hours.",
+      "readability": {
+        "avg_word_length": 5.54,
+        "avg_sentence_length": 6.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 7.69,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.578,
+        "is_duplicate": false,
+        "max_similarity": 0.422
+      }
+    },
+    {
+      "product_id": 20,
+      "title": "Luxury Bedding Set",
+      "description": "Premium Egyptian cotton bedding with luxury comfort. Perfect for a restful and elegant bedroom.",
+      "readability": {
+        "avg_word_length": 5.71,
+        "avg_sentence_length": 7.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 7.14,
+        "luxury": 7.14
+      },
+      "similarity": {
+        "uniqueness_score": 0.484,
+        "is_duplicate": false,
+        "max_similarity": 0.516
+      }
+    },
+    {
+      "product_id": 21,
+      "title": "Eco-Friendly Cleaning Spray",
+      "description": "Non-toxic, biodegradable spray that’s sustainable and safe for the environment.",
+      "readability": {
+        "avg_word_length": 5.5,
+        "avg_sentence_length": 12.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 8.33,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.68,
+        "is_duplicate": false,
+        "max_similarity": 0.32
+      }
+    },
+    {
+      "product_id": 22,
+      "title": "Premium Mountain Bike",
+      "description": "High-performance mountain bike with premium parts. Designed for professionals and enthusiasts.",
+      "readability": {
+        "avg_word_length": 6.75,
+        "avg_sentence_length": 6.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 8.33,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.698,
+        "is_duplicate": false,
+        "max_similarity": 0.302
+      }
+    },
+    {
+      "product_id": 23,
+      "title": "Luxury Wine Glass Set",
+      "description": "Hand-blown crystal glasses designed for luxury dining experiences.",
+      "readability": {
+        "avg_word_length": 6.33,
+        "avg_sentence_length": 9.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 0.0,
+        "luxury": 11.11
+      },
+      "similarity": {
+        "uniqueness_score": 0.625,
+        "is_duplicate": false,
+        "max_similarity": 0.375
+      }
+    },
+    {
+      "product_id": 24,
+      "title": "Sustainable Sneakers",
+      "description": "Shoes made from recycled ocean plastics. Comfortable, stylish, and eco-friendly.",
+      "readability": {
+        "avg_word_length": 6.0,
+        "avg_sentence_length": 5.5
+      },
+      "keyword_density": {
+        "eco_friendly": 9.09,
+        "sustainable": 0.0,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.441,
+        "is_duplicate": false,
+        "max_similarity": 0.559
+      }
+    },
+    {
+      "product_id": 25,
+      "title": "Premium Gaming Laptop",
+      "description": "High-speed gaming laptop with premium graphics. Perfect for professional gamers.",
+      "readability": {
+        "avg_word_length": 6.18,
+        "avg_sentence_length": 5.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 9.09,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.496,
+        "is_duplicate": false,
+        "max_similarity": 0.504
+      }
+    },
+    {
+      "product_id": 26,
+      "title": "Luxury Spa Kit",
+      "description": "A premium collection of skincare and aromatherapy products for luxury home spa experiences.",
+      "readability": {
+        "avg_word_length": 6.0,
+        "avg_sentence_length": 13.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 7.69,
+        "luxury": 7.69
+      },
+      "similarity": {
+        "uniqueness_score": 0.622,
+        "is_duplicate": false,
+        "max_similarity": 0.378
+      }
+    },
+    {
+      "product_id": 27,
+      "title": "Eco-Friendly Backpack",
+      "description": "Durable backpack made with recycled fabric. Sustainable and stylish for daily use.",
+      "readability": {
+        "avg_word_length": 5.75,
+        "avg_sentence_length": 6.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 8.33,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.329,
+        "is_duplicate": false,
+        "max_similarity": 0.671
+      }
+    },
+    {
+      "product_id": 28,
+      "title": "Premium Fountain Pen",
+      "description": "Handcrafted luxury pen with premium ink flow and elegant design.",
+      "readability": {
+        "avg_word_length": 5.4,
+        "avg_sentence_length": 10.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 10.0,
+        "luxury": 10.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.441,
+        "is_duplicate": false,
+        "max_similarity": 0.559
+      }
+    },
+    {
+      "product_id": 29,
+      "title": "Luxury Sofa",
+      "description": "Premium Italian leather sofa designed for comfort and luxury living rooms.",
+      "readability": {
+        "avg_word_length": 5.73,
+        "avg_sentence_length": 11.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 9.09,
+        "luxury": 9.09
+      },
+      "similarity": {
+        "uniqueness_score": 0.529,
+        "is_duplicate": false,
+        "max_similarity": 0.471
+      }
+    },
+    {
+      "product_id": 30,
+      "title": "Sustainable Gardening Kit",
+      "description": "Eco-friendly gardening set with biodegradable pots and organic soil. Perfect for sustainable living.",
+      "readability": {
+        "avg_word_length": 6.07,
+        "avg_sentence_length": 7.0
+      },
+      "keyword_density": {
+        "eco_friendly": 7.14,
+        "sustainable": 7.14,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.619,
+        "is_duplicate": false,
+        "max_similarity": 0.381
+      }
+    },
+    {
+      "product_id": 31,
+      "title": "Premium Road Bike",
+      "description": "Lightweight premium road bike built for speed and durability.",
+      "readability": {
+        "avg_word_length": 5.78,
+        "avg_sentence_length": 9.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 11.11,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.641,
+        "is_duplicate": false,
+        "max_similarity": 0.359
+      }
+    },
+    {
+      "product_id": 32,
+      "title": "Luxury Candle Set",
+      "description": "Handcrafted candles with premium fragrances. Ideal for luxury home décor.",
+      "readability": {
+        "avg_word_length": 6.33,
+        "avg_sentence_length": 4.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 11.11,
+        "luxury": 11.11
+      },
+      "similarity": {
+        "uniqueness_score": 0.599,
+        "is_duplicate": false,
+        "max_similarity": 0.401
+      }
+    },
+    {
+      "product_id": 33,
+      "title": "Eco-Friendly Laptop Sleeve",
+      "description": "Sustainable laptop sleeve made from recycled materials. Durable and stylish.",
+      "readability": {
+        "avg_word_length": 6.5,
+        "avg_sentence_length": 5.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 10.0,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.465,
+        "is_duplicate": false,
+        "max_similarity": 0.535
+      }
+    },
+    {
+      "product_id": 34,
+      "title": "Premium Whiskey",
+      "description": "Aged whiskey with premium flavor. Crafted for luxury connoisseurs.",
+      "readability": {
+        "avg_word_length": 6.22,
+        "avg_sentence_length": 4.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 11.11,
+        "luxury": 11.11
+      },
+      "similarity": {
+        "uniqueness_score": 0.691,
+        "is_duplicate": false,
+        "max_similarity": 0.309
+      }
+    },
+    {
+      "product_id": 35,
+      "title": "Luxury Kitchen Knife Set",
+      "description": "Hand-forged knives with premium steel. Designed for luxury kitchens.",
+      "readability": {
+        "avg_word_length": 5.7,
+        "avg_sentence_length": 5.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 10.0,
+        "luxury": 10.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.625,
+        "is_duplicate": false,
+        "max_similarity": 0.375
+      }
+    },
+    {
+      "product_id": 36,
+      "title": "Sustainable Phone Case",
+      "description": "Biodegradable phone case made with plant-based materials. A sustainable alternative to plastic.",
+      "readability": {
+        "avg_word_length": 6.23,
+        "avg_sentence_length": 6.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 7.69,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.578,
+        "is_duplicate": false,
+        "max_similarity": 0.422
+      }
+    },
+    {
+      "product_id": 37,
+      "title": "Premium Desk Lamp",
+      "description": "Modern lamp with premium finish and energy-efficient design.",
+      "readability": {
+        "avg_word_length": 5.67,
+        "avg_sentence_length": 9.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 11.11,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.733,
+        "is_duplicate": false,
+        "max_similarity": 0.267
+      }
+    },
+    {
+      "product_id": 38,
+      "title": "Luxury Bathrobe",
+      "description": "Soft bathrobe made with premium cotton for luxury comfort.",
+      "readability": {
+        "avg_word_length": 5.44,
+        "avg_sentence_length": 9.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 11.11,
+        "luxury": 11.11
+      },
+      "similarity": {
+        "uniqueness_score": 0.484,
+        "is_duplicate": false,
+        "max_similarity": 0.516
+      }
+    },
+    {
+      "product_id": 39,
+      "title": "Eco-Friendly Grocery Bags",
+      "description": "Reusable shopping bags made from recycled fabrics. A sustainable choice for eco-conscious buyers.",
+      "readability": {
+        "avg_word_length": 5.86,
+        "avg_sentence_length": 7.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 7.14,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.553,
+        "is_duplicate": false,
+        "max_similarity": 0.447
+      }
+    },
+    {
+      "product_id": 40,
+      "title": "Premium Soundbar",
+      "description": "High-fidelity sound system with premium bass. Perfect for luxury home theaters.",
+      "readability": {
+        "avg_word_length": 5.5,
+        "avg_sentence_length": 6.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 8.33,
+        "luxury": 8.33
+      },
+      "similarity": {
+        "uniqueness_score": 0.622,
+        "is_duplicate": false,
+        "max_similarity": 0.378
+      }
+    },
+    {
+      "product_id": 41,
+      "title": "Luxury Eyewear",
+      "description": "Designer sunglasses with premium craftsmanship. A luxury accessory for fashion lovers.",
+      "readability": {
+        "avg_word_length": 6.73,
+        "avg_sentence_length": 5.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 9.09,
+        "luxury": 9.09
+      },
+      "similarity": {
+        "uniqueness_score": 0.553,
+        "is_duplicate": false,
+        "max_similarity": 0.447
+      }
+    },
+    {
+      "product_id": 42,
+      "title": "Eco-Friendly Coffee Cup",
+      "description": "Reusable bamboo coffee cup. Sustainable, lightweight, and eco-conscious.",
+      "readability": {
+        "avg_word_length": 6.67,
+        "avg_sentence_length": 4.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 11.11,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.5,
+        "is_duplicate": false,
+        "max_similarity": 0.5
+      }
+    },
+    {
+      "product_id": 43,
+      "title": "Premium Mattress",
+      "description": "Memory foam mattress with premium comfort. Designed for luxury sleep.",
+      "readability": {
+        "avg_word_length": 5.8,
+        "avg_sentence_length": 5.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 10.0,
+        "luxury": 10.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.529,
+        "is_duplicate": false,
+        "max_similarity": 0.471
+      }
+    },
+    {
+      "product_id": 44,
+      "title": "Luxury Travel Bag",
+      "description": "Handmade leather travel bag for premium jetsetters.",
+      "readability": {
+        "avg_word_length": 6.29,
+        "avg_sentence_length": 7.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 14.29,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.728,
+        "is_duplicate": false,
+        "max_similarity": 0.272
+      }
+    },
+    {
+      "product_id": 45,
+      "title": "Sustainable Cutlery Set",
+      "description": "Reusable cutlery made with eco-friendly bamboo. A sustainable dining choice.",
+      "readability": {
+        "avg_word_length": 5.82,
+        "avg_sentence_length": 5.5
+      },
+      "keyword_density": {
+        "eco_friendly": 9.09,
+        "sustainable": 9.09,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.5,
+        "is_duplicate": false,
+        "max_similarity": 0.5
+      }
+    },
+    {
+      "product_id": 46,
+      "title": "Premium Gaming Chair",
+      "description": "Ergonomic chair with premium materials. Perfect for professional gamers.",
+      "readability": {
+        "avg_word_length": 6.89,
+        "avg_sentence_length": 4.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 11.11,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.496,
+        "is_duplicate": false,
+        "max_similarity": 0.504
+      }
+    },
+    {
+      "product_id": 47,
+      "title": "Luxury Diamond Ring",
+      "description": "A handcrafted diamond ring with premium stones. Symbol of elegance and luxury.",
+      "readability": {
+        "avg_word_length": 5.42,
+        "avg_sentence_length": 6.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 8.33,
+        "luxury": 8.33
+      },
+      "similarity": {
+        "uniqueness_score": 0.599,
+        "is_duplicate": false,
+        "max_similarity": 0.401
+      }
+    },
+    {
+      "product_id": 48,
+      "title": "Eco-Friendly Dog Bed",
+      "description": "Pet bed made with sustainable fabrics. Comfortable, durable, and eco-friendly.",
+      "readability": {
+        "avg_word_length": 5.82,
+        "avg_sentence_length": 5.5
+      },
+      "keyword_density": {
+        "eco_friendly": 9.09,
+        "sustainable": 9.09,
+        "premium": 0.0,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.5,
+        "is_duplicate": false,
+        "max_similarity": 0.5
+      }
+    },
+    {
+      "product_id": 49,
+      "title": "Premium Winter Jacket",
+      "description": "Insulated jacket made with premium materials. Designed for warmth and style.",
+      "readability": {
+        "avg_word_length": 5.82,
+        "avg_sentence_length": 5.5
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 9.09,
+        "luxury": 0.0
+      },
+      "similarity": {
+        "uniqueness_score": 0.658,
+        "is_duplicate": false,
+        "max_similarity": 0.342
+      }
+    },
+    {
+      "product_id": 50,
+      "title": "Luxury Car Wax",
+      "description": "Premium wax for luxury cars. Provides high gloss and long-lasting protection.",
+      "readability": {
+        "avg_word_length": 5.33,
+        "avg_sentence_length": 6.0
+      },
+      "keyword_density": {
+        "eco_friendly": 0.0,
+        "sustainable": 0.0,
+        "premium": 8.33,
+        "luxury": 8.33
+      },
+      "similarity": {
+        "uniqueness_score": 0.684,
+        "is_duplicate": false,
+        "max_similarity": 0.316
+      }
+    }
+  ],
+  "analysis_type": "3 Core Metrics: Readability + Keyword Density + Cosine Similarity"
+}

@@ -41,15 +41,34 @@ class ProductInput(BaseModel):
     )
 
 
+class ReadabilityResult(BaseModel):
+    """Readability analysis result."""
+    avg_word_length: float = Field(..., description="Average word length in characters")
+    avg_sentence_length: float = Field(..., description="Average sentence length in words")
+
+class KeywordDensityResult(BaseModel):
+    """Keyword density analysis result."""
+    eco_friendly: float = Field(..., description="Eco-friendly keyword density percentage")
+    sustainable: float = Field(..., description="Sustainable keyword density percentage")
+    premium: float = Field(..., description="Premium keyword density percentage")
+    luxury: float = Field(..., description="Luxury keyword density percentage")
+
+class SimilarityResult(BaseModel):
+    """Similarity analysis result."""
+    uniqueness_score: float = Field(..., description="Uniqueness score (0.0 = duplicate, 1.0 = unique)")
+    is_duplicate: bool = Field(..., description="Whether this content is likely a duplicate (similarity > 80%)")
+    max_similarity: float = Field(..., description="Maximum similarity to other descriptions")
+
+class AnalysisResult(BaseModel):
+    """Complete analysis result for a single description."""
+    description: str = Field(..., description="The analyzed text")
+    readability: ReadabilityResult = Field(..., description="Readability metrics")
+    keyword_density: KeywordDensityResult = Field(..., description="Keyword density metrics")
+    similarity: SimilarityResult = Field(..., description="Similarity and duplicate detection")
+
 class AnalysisResponse(BaseModel):
     """Response model for analysis results."""
-
-    results: List[Dict[str, Any]] = Field(
-        ..., description="Analysis results for each description"
-    )
-    summary: Dict[str, Any] = Field(
-        ..., description="Summary statistics across all descriptions"
-    )
+    results: List[AnalysisResult] = Field(..., description="Analysis results for each description")
 
 
 class RecommendationResponse(BaseModel):
@@ -69,7 +88,6 @@ async def root():
         "endpoints": [
             "/analyze",
             "/recommend",
-            "/advanced-analysis",
             "/sample-analysis",
             "/docs",
         ],
@@ -98,109 +116,70 @@ async def root():
 @app.post("/analyze", response_model=AnalysisResponse)
 async def analyze_descriptions(input_data: ProductInput):
     """
-    Analyze product descriptions using NumPy and scikit-learn for professional ML analysis.
+    Analyze product descriptions for the 3 core metrics:
 
-    This endpoint leverages professional ML libraries for:
-    - Readability scores with NumPy statistical operations
-    - Keyword density analysis with optimized calculations
-    - Uniqueness scores using scikit-learn's cosine similarity
-    - Overall quality scores and interpretations
+    1. Readability Score (average word length, average sentence length)
+    2. Keyword Density for ["eco-friendly", "sustainable", "premium", "luxury"]
+    3. Cosine Similarity comparison to detect duplicates
     """
     try:
-        import numpy as np
         from .utils import calculate_text_similarity_matrix
+        import numpy as np
 
-        # Update analyzer with custom keywords if provided
-        if input_data.keywords:
-            analyzer.target_keywords = input_data.keywords
+        # Use fixed keywords as requested
+        target_keywords = ["eco-friendly", "sustainable", "premium", "luxury"]
+        analyzer.target_keywords = target_keywords
 
-        # Analyze all descriptions using enhanced ML libraries
-        results = analyzer.analyze_multiple_texts(input_data.descriptions)
-
-        # Calculate advanced similarity metrics using scikit-learn (internal processing)
+        # Calculate similarity matrix for all descriptions
         similarity_matrix = calculate_text_similarity_matrix(input_data.descriptions)
 
-        # Calculate summary statistics with NumPy
-        summary = _calculate_summary_stats(results)
-
-        # Add NumPy-powered summary insights with business explanations
-        if results:
-            overall_scores = np.array([r["overall_score"] for r in results])
-            keyword_scores = np.array(
-                [r["keyword_density"]["density_score"] for r in results]
-            )
-            uniqueness_scores = np.array(
-                [r["uniqueness"]["uniqueness_score"] for r in results]
+        results = []
+        for i, description in enumerate(input_data.descriptions):
+            # 1. Readability Score
+            readability_data = analyzer.calculate_readability_score(description)
+            readability = ReadabilityResult(
+                avg_word_length=readability_data["avg_word_length"],
+                avg_sentence_length=readability_data["avg_sentence_length"]
             )
 
-            # Analyze content issues with adaptive thresholds
-            severe_stuffing_count = 0
-            mild_stuffing_count = 0
-            under_optimized_count = 0
-            excellent_quality_count = 0
-
-            for r in results:
-                density = r["keyword_density"]["total_density"]
-                adaptive_context = r["keyword_density"].get("adaptive_context", {})
-                max_threshold = adaptive_context.get("applied_max_threshold", 8.0)
-
-                if density > 25:  # Severe stuffing regardless of text length
-                    severe_stuffing_count += 1
-                elif (
-                    density > max_threshold
-                ):  # Over-optimized based on adaptive threshold
-                    mild_stuffing_count += 1
-                elif density < 2:  # Under-optimized
-                    under_optimized_count += 1
-                else:
-                    excellent_quality_count += 1
-
-            low_uniqueness_count = sum(
-                1 for r in results if r["uniqueness"]["uniqueness_score"] < 0.7
+            # 2. Keyword Density
+            keyword_data = analyzer.calculate_keyword_density_score(description)
+            keyword_densities = keyword_data["keyword_densities"]
+            keyword_density = KeywordDensityResult(
+                eco_friendly=keyword_densities.get("eco-friendly", 0.0),
+                sustainable=keyword_densities.get("sustainable", 0.0),
+                premium=keyword_densities.get("premium", 0.0),
+                luxury=keyword_densities.get("luxury", 0.0)
             )
 
-            business_insights = []
-            if severe_stuffing_count > 0:
-                business_insights.append(
-                    f"{severe_stuffing_count} description(s) have severe keyword stuffing - will hurt SEO rankings"
-                )
-            if mild_stuffing_count > 0:
-                business_insights.append(
-                    f"{mild_stuffing_count} description(s) exceed optimal density for their text length"
-                )
-            if under_optimized_count > 0:
-                business_insights.append(
-                    f"{under_optimized_count} description(s) lack target keywords - missing SEO opportunities"
-                )
-            if low_uniqueness_count > 0:
-                business_insights.append(
-                    f"{low_uniqueness_count} description(s) are too similar - risk duplicate content penalties"
-                )
-            if excellent_quality_count == len(results) and not business_insights:
-                business_insights.append(
-                    "All descriptions meet adaptive quality standards for SEO and uniqueness"
-                )
+            # 3. Cosine Similarity & Duplicate Detection
+            if len(input_data.descriptions) > 1:
+                # Get similarities to other descriptions (excluding self)
+                similarities = similarity_matrix[i]
+                other_similarities = np.concatenate([similarities[:i], similarities[i+1:]])
+                max_similarity = float(np.max(other_similarities)) if len(other_similarities) > 0 else 0.0
+            else:
+                max_similarity = 0.0
 
-            if not business_insights:
-                business_insights.append(
-                    "All descriptions meet quality standards for SEO and uniqueness"
-                )
+            uniqueness_score = 1.0 - max_similarity
+            is_duplicate = max_similarity >= 0.79  # ~80% similarity threshold for duplicates (accounting for floating point precision)
 
-            summary["content_analysis"] = {
-                "business_insights": business_insights,
-                "keyword_analysis": {
-                    "severe_stuffing_descriptions": severe_stuffing_count,
-                    "mild_over_optimized_descriptions": mild_stuffing_count,
-                    "under_optimized_descriptions": under_optimized_count,
-                    "explanation": "Optimal keyword density is 2-8%. Over 15% is over-optimized, over 25% is severe stuffing",
-                },
-                "uniqueness_analysis": {
-                    "duplicate_risk_descriptions": low_uniqueness_count,
-                    "explanation": "Unique content (>70% uniqueness) avoids search engine penalties",
-                },
-            }
+            similarity = SimilarityResult(
+                uniqueness_score=round(uniqueness_score, 3),
+                is_duplicate=bool(is_duplicate),  # Ensure boolean type
+                max_similarity=round(max_similarity, 3)
+            )
 
-        return AnalysisResponse(results=results, summary=summary)
+            # Create final result
+            result = AnalysisResult(
+                description=description,
+                readability=readability,
+                keyword_density=keyword_density,
+                similarity=similarity
+            )
+            results.append(result)
+
+        return AnalysisResponse(results=results)
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
@@ -330,130 +309,149 @@ async def get_recommendations(input_data: ProductInput):
 @app.get("/sample-analysis")
 async def sample_analysis():
     """
-    Comprehensive ML demonstration using NumPy and scikit-learn on sample product data.
+    Analyze ALL product descriptions from products.json using the 3 core metrics:
 
-    This endpoint showcases professional ML library usage with:
-    - NumPy-powered statistical analysis across product catalog
-    - scikit-learn clustering and similarity analysis
-    - Advanced data science insights and visualizations
-    - Production-ready ML pipeline demonstration
+    1. Readability Score (average word length, average sentence length)
+    2. Keyword Density for ["eco-friendly", "sustainable", "premium", "luxury"]
+    3. Cosine Similarity comparison to detect duplicates across entire catalog
     """
     try:
         import numpy as np
-        from .utils import (
-            calculate_statistical_features,
-            calculate_text_similarity_matrix,
-            calculate_similarity_metrics,
-        )
+        from .utils import calculate_text_similarity_matrix
 
-        # Load sample data
+        # Load ALL products from products.json
         ingestion = ProductDataIngestion()
         products = ingestion.load_products()
 
-        # Take first 10 products for comprehensive ML demo
-        sample_descriptions = [p["description"] for p in products[:10]]
+        # Extract all descriptions for analysis
+        all_descriptions = [p["description"] for p in products]
 
-        # Analyze sample data with enhanced ML libraries
-        results = analyzer.analyze_multiple_texts(sample_descriptions)
-        summary = _calculate_summary_stats(results)
+        print(f"Analyzing {len(all_descriptions)} product descriptions...")
 
-        # Advanced NumPy statistical analysis
-        statistical_features = calculate_statistical_features(sample_descriptions)
-        similarity_matrix = calculate_text_similarity_matrix(sample_descriptions)
-        similarity_metrics = calculate_similarity_metrics(similarity_matrix)
+        # Use fixed keywords for analysis
+        target_keywords = ["eco-friendly", "sustainable", "premium", "luxury"]
+        analyzer.target_keywords = target_keywords
 
-        # NumPy-powered portfolio analysis
-        scores = np.array([r["overall_score"] for r in results])
-        readability_scores = np.array(
-            [r["readability"]["readability_score"] for r in results]
-        )
-        keyword_scores = np.array(
-            [r["keyword_density"]["density_score"] for r in results]
-        )
-        uniqueness_scores = np.array(
-            [r["uniqueness"]["uniqueness_score"] for r in results]
-        )
+        # Calculate similarity matrix for ALL descriptions
+        similarity_matrix = calculate_text_similarity_matrix(all_descriptions)
 
-        # Advanced ML insights
-        ml_insights = {
-            "portfolio_analysis": {
-                "total_products_analyzed": len(sample_descriptions),
-                "score_distribution": {
-                    "overall": {
-                        "mean": float(np.mean(scores)),
-                        "std": float(np.std(scores)),
-                        "variance": float(np.var(scores)),
-                        "percentiles": {
-                            "10th": float(np.percentile(scores, 10)),
-                            "25th": float(np.percentile(scores, 25)),
-                            "50th": float(np.percentile(scores, 50)),
-                            "75th": float(np.percentile(scores, 75)),
-                            "90th": float(np.percentile(scores, 90)),
-                        },
-                    }
+        # Process each product description
+        analysis_results = []
+        duplicate_pairs = []
+
+        for i, (product, description) in enumerate(zip(products, all_descriptions)):
+            # 1. Readability Score
+            readability_data = analyzer.calculate_readability_score(description)
+
+            # 2. Keyword Density
+            keyword_data = analyzer.calculate_keyword_density_score(description)
+            keyword_densities = keyword_data["keyword_densities"]
+
+            # 3. Cosine Similarity & Duplicate Detection
+            if len(all_descriptions) > 1:
+                similarities = similarity_matrix[i]
+                other_similarities = np.concatenate([similarities[:i], similarities[i+1:]])
+                max_similarity = float(np.max(other_similarities)) if len(other_similarities) > 0 else 0.0
+            else:
+                max_similarity = 0.0
+
+            uniqueness_score = 1.0 - max_similarity
+            is_duplicate = max_similarity >= 0.79
+
+            # Track duplicate pairs if similarity is high enough
+            if is_duplicate:
+                # Find which product it's most similar to for duplicate pair tracking
+                max_idx = np.argmax(similarities)
+                if max_idx == i:  # If pointing to self, find second highest
+                    similarities_copy = similarities.copy()
+                    similarities_copy[i] = -1
+                    max_idx = np.argmax(similarities_copy)
+
+                if max_similarity > 0.1:  # Only if meaningfully similar
+                    most_similar_product_id = products[max_idx]["id"]
+
+                    # Avoid duplicate entries in pairs list
+                    pair_exists = any(
+                        (dp["product_1"]["id"] == most_similar_product_id and dp["product_2"]["id"] == product["id"])
+                        for dp in duplicate_pairs
+                    )
+
+                    if not pair_exists:
+                        duplicate_pairs.append({
+                            "product_1": {"id": product["id"], "title": product["title"]},
+                            "product_2": {"id": most_similar_product_id, "title": next(p["title"] for p in products if p["id"] == most_similar_product_id)},
+                            "similarity": round(max_similarity, 3)
+                        })
+
+            analysis_results.append({
+                "product_id": product["id"],
+                "title": product["title"],
+                "description": description,
+                "readability": {
+                    "avg_word_length": readability_data["avg_word_length"],
+                    "avg_sentence_length": readability_data["avg_sentence_length"]
                 },
-                "correlation_analysis": {
-                    "readability_vs_overall": float(
-                        np.corrcoef(readability_scores, scores)[0, 1]
-                    ),
-                    "uniqueness_vs_overall": float(
-                        np.corrcoef(uniqueness_scores, scores)[0, 1]
-                    ),
-                    "keyword_vs_overall": float(
-                        np.corrcoef(keyword_scores, scores)[0, 1]
-                    ),
+                "keyword_density": {
+                    "eco_friendly": keyword_densities.get("eco-friendly", 0.0),
+                    "sustainable": keyword_densities.get("sustainable", 0.0),
+                    "premium": keyword_densities.get("premium", 0.0),
+                    "luxury": keyword_densities.get("luxury", 0.0)
                 },
-            },
-            "similarity_clustering": similarity_metrics,
-            "content_optimization": {
-                "top_performing_indices": np.argsort(scores)[-3:].tolist()[::-1],
-                "improvement_candidates": np.argsort(scores)[:3].tolist(),
-                "diversity_score": float(np.std(uniqueness_scores)),
-            },
-            "optimization_insights": {
-                "statistical_analysis": "Advanced correlation and variance analysis completed",
-                "similarity_clustering": "Text vectorization and clustering analysis performed",
-                "portfolio_optimization": "Content performance ranking and recommendations generated",
-            },
+                "similarity": {
+                    "uniqueness_score": round(uniqueness_score, 3),
+                    "is_duplicate": is_duplicate,
+                    "max_similarity": round(max_similarity, 3)
+                }
+            })
+
+        # Calculate summary statistics
+        total_products = len(analysis_results)
+        duplicate_count = sum(1 for r in analysis_results if r["similarity"]["is_duplicate"])
+
+        # Keyword usage statistics
+        keyword_stats = {
+            "eco_friendly": sum(1 for r in analysis_results if r["keyword_density"]["eco_friendly"] > 0),
+            "sustainable": sum(1 for r in analysis_results if r["keyword_density"]["sustainable"] > 0),
+            "premium": sum(1 for r in analysis_results if r["keyword_density"]["premium"] > 0),
+            "luxury": sum(1 for r in analysis_results if r["keyword_density"]["luxury"] > 0)
         }
 
-        # Convert NumPy types for JSON serialization
-        def convert_numpy_types(obj):
-            if isinstance(obj, np.ndarray):
-                return obj.tolist()
-            elif isinstance(obj, dict):
-                return {k: convert_numpy_types(v) for k, v in obj.items()}
-            elif isinstance(obj, list):
-                return [convert_numpy_types(item) for item in obj]
-            elif isinstance(obj, (np.integer, np.floating, np.bool_)):
-                return float(obj) if not isinstance(obj, np.bool_) else bool(obj)
-            elif hasattr(obj, "item"):
-                return obj.item()
-            return obj
+        # Readability statistics
+        avg_word_lengths = [r["readability"]["avg_word_length"] for r in analysis_results]
+        avg_sentence_lengths = [r["readability"]["avg_sentence_length"] for r in analysis_results]
 
         return {
-            "message": "Advanced ML analysis of product portfolio using NumPy and scikit-learn",
-            "results": results,
-            "summary": summary,
-            "statistical_features": (
-                convert_numpy_types(statistical_features)
-                if statistical_features
-                else {}
-            ),
-            "ml_insights": convert_numpy_types(ml_insights),
-            "business_impact": {
-                "analysis_depth": "Enterprise-grade content optimization",
-                "performance_insights": [
-                    "Quality scoring",
-                    "Content ranking",
-                    "SEO optimization",
-                ],
-                "competitive_advantage": "AI-powered content strategy recommendations",
+            "message": f"Complete analysis of {total_products} product descriptions using 3 core metrics",
+            "summary": {
+                "total_products_analyzed": total_products,
+                "duplicates_found": duplicate_count,
+                "duplicate_percentage": round((duplicate_count / total_products) * 100, 1) if total_products > 0 else 0,
+                "unique_products": total_products - duplicate_count,
+                "keyword_usage": keyword_stats,
+                "readability_averages": {
+                    "avg_word_length": round(np.mean(avg_word_lengths), 2),
+                    "avg_sentence_length": round(np.mean(avg_sentence_lengths), 2)
+                }
             },
+            "duplicate_pairs": duplicate_pairs,
+            "results": analysis_results,
+            "analysis_type": "3 Core Metrics: Readability + Keyword Density + Cosine Similarity"
         }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Sample analysis failed: {str(e)}")
+
+
+def _safe_correlation(x, y):
+    """Calculate correlation with NaN handling."""
+    try:
+        corr_matrix = np.corrcoef(x, y)
+        corr_value = corr_matrix[0, 1]
+        if np.isnan(corr_value) or np.isinf(corr_value):
+            return 0.0
+        return float(corr_value)
+    except:
+        return 0.0
 
 
 def _calculate_summary_stats(results: List[Dict[str, Any]]) -> Dict[str, Any]:
