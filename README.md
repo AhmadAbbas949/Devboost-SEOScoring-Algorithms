@@ -14,18 +14,18 @@ A production-ready Shopify application for analyzing e-commerce product descript
 
 ## 📚 Libraries and Why They're Used
 
-| Library                | Purpose                             | Why in This Project                                                |
-| ---------------------- | ----------------------------------- | ------------------------------------------------------------------ |
-| **FastAPI**            | Modern REST API framework          | Auto-generated docs, async support, and Pydantic integration       |
-| **Pydantic**           | Data validation & serialization    | Type-safe API models with automatic validation                     |
-| **NumPy**              | High-performance numerical computing| Statistical operations, matrix calculations, and data analysis     |
-| **scikit-learn**       | Professional ML algorithms         | `CountVectorizer` for text vectorization, `cosine_similarity` for uniqueness |
-| **re** (built-in)      | Pattern matching & text processing | Efficient tokenization and keyword extraction                      |
-| **json** (built-in)    | JSON data handling                  | Parse Shopify product data with error handling                     |
-| **pathlib** (built-in) | Modern file system operations      | Cross-platform path handling with safety checks                    |
-| **pytest**             | Professional testing framework     | 54 comprehensive tests for quality assurance                       |
-| **uvicorn**            | High-performance ASGI server       | Production-ready server with hot reload for development            |
-| **httpx**              | Modern HTTP client                  | Testing API endpoints with async support                           |
+| Library                | Purpose                              | Why in This Project                                                          |
+| ---------------------- | ------------------------------------ | ---------------------------------------------------------------------------- |
+| **FastAPI**            | Modern REST API framework            | Auto-generated docs, async support, and Pydantic integration                 |
+| **Pydantic**           | Data validation & serialization      | Type-safe API models with automatic validation                               |
+| **NumPy**              | High-performance numerical computing | Statistical operations, matrix calculations, and data analysis               |
+| **scikit-learn**       | Professional ML algorithms           | `CountVectorizer` for text vectorization, `cosine_similarity` for uniqueness |
+| **re** (built-in)      | Pattern matching & text processing   | Efficient tokenization and keyword extraction                                |
+| **json** (built-in)    | JSON data handling                   | Parse Shopify product data with error handling                               |
+| **pathlib** (built-in) | Modern file system operations        | Cross-platform path handling with safety checks                              |
+| **pytest**             | Professional testing framework       | 54 comprehensive tests for quality assurance                                 |
+| **uvicorn**            | High-performance ASGI server         | Production-ready server with hot reload for development                      |
+| **httpx**              | Modern HTTP client                   | Testing API endpoints with async support                                     |
 
 ## 🛠️ Setup & Installation
 
@@ -78,142 +78,6 @@ pytest
 pytest --cov=src tests/
 ```
 
-## 📖 API Documentation
-
-### Endpoints
-
-#### `GET /`
-
-Health check endpoint
-
-```json
-{
-  "message": "devBoost Text Analysis API",
-  "status": "healthy",
-  "endpoints": ["/analyze", "/recommend", "/docs"]
-}
-```
-
-#### `POST /analyze`
-
-Analyze product descriptions with **adaptive length-aware algorithms** for optimal e-commerce insights.
-
-**Request Body:**
-
-```json
-{
-  "descriptions": [
-    "Premium handcrafted leather bag with elegant design.",
-    "Sustainable eco-friendly water bottle made from recycled materials."
-  ],
-  "keywords": ["eco-friendly", "sustainable", "premium", "luxury"]
-}
-```
-
-**Enhanced Response with Adaptive Context:**
-
-```json
-{
-  "results": [
-    {
-      "text": "Premium handcrafted leather bag with elegant design.",
-      "text_index": 0,
-      "readability": {
-        "avg_word_length": 6.43,
-        "avg_sentence_length": 7.0,
-        "readability_score": 0.814,
-        "interpretation": "Excellent readability"
-      },
-      "keyword_density": {
-        "keyword_densities": {
-          "eco-friendly": 0.0,
-          "sustainable": 0.0,
-          "premium": 14.29,
-          "luxury": 0.0
-        },
-        "total_density": 14.29,
-        "density_score": 1.0,
-        "interpretation": "Optimal keyword usage (14.29%) (adapted for very_short text)",
-        "adaptive_context": {
-          "word_count": 7,
-          "text_length_category": "very_short",
-          "applied_max_threshold": 30.0
-        }
-      },
-      "uniqueness": {
-        "uniqueness_score": 1.0,
-        "interpretation": "Highly unique content"
-      },
-      "overall_score": 0.938,
-      "overall_interpretation": "Excellent content quality"
-    }
-  ],
-  "summary": {
-    "total_descriptions": 1,
-    "average_scores": {
-      "overall": 0.938,
-      "readability": 0.814,
-      "keyword_density": 1.0,
-      "uniqueness": 1.0
-    },
-    "content_analysis": {
-      "business_insights": [
-        "All descriptions meet adaptive quality standards for SEO and uniqueness"
-      ],
-      "keyword_analysis": {
-        "explanation": "Adaptive thresholds: ≤8 words = 30%, ≤15 words = 20%, >15 words = 8%"
-      }
-    }
-  }
-}
-```
-
-#### `POST /recommend`
-
-Get improvement recommendations for product descriptions.
-
-**Request Body:**
-
-```json
-{
-  "descriptions": [
-    "Short text.",
-    "This is a very long sentence with many words that makes it difficult to read and understand what the product is about."
-  ]
-}
-```
-
-**Response:**
-
-```json
-{
-  "recommendations": [
-    {
-      "description_index": 0,
-      "description": "Short text.",
-      "overall_score": 0.234,
-      "recommendations": [
-        "Consider including keywords: eco-friendly, sustainable",
-        "Consider rewriting content with focus on clarity and uniqueness"
-      ]
-    },
-    {
-      "description_index": 1,
-      "description": "This is a very long sentence...",
-      "overall_score": 0.412,
-      "recommendations": [
-        "Break long sentences into shorter ones",
-        "Consider including keywords: premium, luxury"
-      ]
-    }
-  ]
-}
-```
-
-#### `GET /sample-analysis`
-
-Demonstrate API functionality with sample product data.
-
 ## 🧪 Testing
 
 The project includes comprehensive unit tests covering:
@@ -261,7 +125,7 @@ devboost-app/
 
 ## 🔍 Advanced Analysis Metrics
 
-### 🎯 Adaptive Keyword Density (NEW!)
+### 🎯 Adaptive Keyword Density
 
 - **Length-Aware Thresholds**: Automatically adjusts based on content length
   - **Very Short** (≤8 words): Up to 30% density allowed
@@ -289,27 +153,29 @@ devboost-app/
 - **Score Range**: 0.0 (identical) to 1.0 (completely unique)
 - **Cross-Comparison**: Against all other provided descriptions in batch
 
-## 🏗️ Enterprise Architecture
-
 ### 🎯 Core Components (Optimized)
 
 1. **📊 Data Ingestion (`ingest.py`)**
+
    - Loads and validates Shopify-style JSON data
    - Robust error handling with descriptive messages
    - Metadata enrichment for enhanced analysis
 
 2. **🧠 Analysis Engine (`analysis.py`)**
+
    - **Adaptive keyword scoring** with length-aware thresholds
    - **Centralized recommendation system** (zero duplication)
    - **Multi-text cross-comparison** for uniqueness analysis
 
 3. **⚙️ Scoring System (`scoring.py`)** - **NEW ARCHITECTURE!**
+
    - **ScoreInterpreter**: Consistent score interpretations
    - **OptimalRangeScorer**: Reusable range-based algorithms
    - **QualityMetrics**: Centralized business rules
    - **RecommendationEngine**: Modular suggestion generation
 
 4. **🔧 ML Utilities (`utils.py`)** - **Optimized**
+
    - Professional scikit-learn text vectorization
    - NumPy-powered statistical operations
    - **Cleaned imports**: Removed unused `math` and `Counter`
@@ -330,16 +196,6 @@ devboost-app/
 - **🔒 Production Ready**: Enterprise-grade error handling and validation
 - **📚 Type Safety**: Full type hints throughout codebase
 
-## 🎯 Business Value
-
-This tool helps e-commerce brands:
-
-- **Optimize SEO**: Improve keyword density for better search rankings
-- **Enhance Readability**: Make product descriptions more customer-friendly
-- **Ensure Uniqueness**: Avoid duplicate content penalties
-- **Save Time**: Automated analysis replaces manual content review
-- **Increase Conversions**: Better descriptions lead to higher sales
-
 ## 📊 Performance Considerations
 
 - **Memory Efficient**: Processes texts individually to handle large datasets
@@ -358,18 +214,6 @@ The API includes robust error handling for:
 - Network timeouts
 
 All errors return proper HTTP status codes with descriptive messages.
-
-## 🚀 Recent Improvements & Optimizations
-
-### ✅ Latest Updates (V2.0)
-
-- **🎯 Adaptive Keyword Thresholds**: Length-aware scoring prevents false over-optimization warnings
-- **🏗️ Zero Code Duplication**: Centralized scoring system eliminates repetitive code
-- **⚡ Performance Optimized**: Removed unused imports (`math`, `Counter`) and dead functions
-- **🤖 Smart Business Insights**: Context-aware recommendations with adaptive thresholds
-- **🧪 Enhanced Testing**: 54 comprehensive tests with improved coverage
-- **📱 Better API Documentation**: Updated Swagger examples with default keywords
-- **🔧 Professional ML**: scikit-learn integration for production-grade text analysis
 
 ### 🔄 Future Enhancements
 
