@@ -17,7 +17,8 @@ A comprehensive Shopify App for analyzing e-commerce product descriptions with A
 | ---------------------- | ----------------------------------- | ------------------------------------------------------------------ |
 | **FastAPI**            | Build REST APIs quickly and cleanly | Provides `/analyze` and `/recommend` endpoints with automatic docs |
 | **Pydantic**           | Data validation & type enforcement  | Ensures incoming JSON matches `ProductInput` model                 |
-| **scikit-learn**       | Machine learning utilities          | `CountVectorizer` and `cosine_similarity` for uniqueness scoring   |
+| **NumPy**              | Numerical computing                 | Efficient arrays, statistical operations, and matrix calculations   |
+| **scikit-learn**       | Machine learning utilities          | `CountVectorizer` and `cosine_similarity` for professional NLP     |
 | **re** (built-in)      | Regular expressions                 | Tokenizing text into words/sentences & keyword counting            |
 | **json** (built-in)    | Parse JSON files                    | Load Shopify-style JSON into Python dictionaries                   |
 | **pathlib** (built-in) | Clean file paths                    | Cross-platform safe file path handling for `data/products.json`    |
@@ -265,9 +266,10 @@ devboost-app/
 
 ### Uniqueness Score
 
-- **Method**: Cosine similarity using CountVectorizer
+- **Method**: Cosine similarity using scikit-learn's CountVectorizer & NumPy operations
 - **Score Range**: 0.0 (identical) to 1.0 (completely unique)
 - **Comparison**: Against all other provided descriptions
+- **Features**: Stop word removal, frequency-based vectorization, optimized similarity computation
 
 ## 🏗️ Architecture
 

@@ -64,7 +64,8 @@ async def root():
     return {
         "message": "devBoost Text Analysis API",
         "status": "healthy",
-        "endpoints": ["/analyze", "/recommend", "/docs"],
+        "endpoints": ["/analyze", "/recommend", "/advanced-analysis", "/sample-analysis", "/docs"],
+        "ml_libraries": ["NumPy", "scikit-learn", "FastAPI", "Pydantic"]
     }
 
 
@@ -164,6 +165,102 @@ async def sample_analysis():
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Sample analysis failed: {str(e)}")
+
+
+@app.post("/advanced-analysis")
+async def advanced_analysis(input_data: ProductInput):
+    """
+    Advanced text analysis using NumPy and scikit-learn for enhanced insights.
+
+    This endpoint showcases professional ML library usage with:
+    - scikit-learn's CountVectorizer for text vectorization
+    - NumPy arrays for efficient statistical computations
+    - Advanced similarity metrics and clustering insights
+    """
+    try:
+        from .utils import calculate_statistical_features, calculate_similarity_metrics, calculate_text_similarity_matrix
+        import numpy as np
+
+        # Update analyzer with custom keywords if provided
+        if input_data.keywords:
+            analyzer.target_keywords = input_data.keywords
+
+        # Standard analysis
+        results = analyzer.analyze_multiple_texts(input_data.descriptions)
+
+        # Advanced NumPy-powered statistical analysis
+        try:
+            statistical_features = calculate_statistical_features(input_data.descriptions)
+        except Exception:
+            statistical_features = {}
+
+        # scikit-learn powered similarity analysis
+        similarity_matrix = calculate_text_similarity_matrix(input_data.descriptions)
+        similarity_metrics = calculate_similarity_metrics(similarity_matrix)
+
+        # Enhanced insights using NumPy operations
+        if len(input_data.descriptions) > 1:
+            # Cluster analysis using similarity patterns
+            similarity_scores = []
+            for i in range(len(input_data.descriptions)):
+                for j in range(i + 1, len(input_data.descriptions)):
+                    similarity_scores.append(similarity_matrix[i, j])
+
+            clustering_insights = {
+                "similarity_distribution": {
+                    "mean": float(np.mean(similarity_scores)),
+                    "std": float(np.std(similarity_scores)),
+                    "min": float(np.min(similarity_scores)),
+                    "max": float(np.max(similarity_scores)),
+                    "percentiles": {
+                        "25th": float(np.percentile(similarity_scores, 25)),
+                        "50th": float(np.percentile(similarity_scores, 50)),
+                        "75th": float(np.percentile(similarity_scores, 75))
+                    }
+                },
+                "duplicate_risk_pairs": [
+                    {
+                        "description_1_index": int(i),
+                        "description_2_index": int(j),
+                        "similarity_score": float(similarity_matrix[i, j])
+                    }
+                    for i in range(len(input_data.descriptions))
+                    for j in range(i + 1, len(input_data.descriptions))
+                    if similarity_matrix[i, j] > 0.7  # High similarity threshold
+                ]
+            }
+        else:
+            clustering_insights = {"message": "Need multiple descriptions for clustering analysis"}
+
+        # Convert NumPy arrays to JSON-serializable format
+        def convert_numpy_types(obj):
+            if isinstance(obj, np.ndarray):
+                return obj.tolist()
+            elif isinstance(obj, dict):
+                return {k: convert_numpy_types(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_numpy_types(item) for item in obj]
+            elif isinstance(obj, (np.integer, np.floating)):
+                return float(obj)
+            return obj
+
+        return {
+            "standard_analysis": results,
+            "statistical_features": convert_numpy_types(statistical_features) if statistical_features else {},
+            "similarity_metrics": convert_numpy_types(similarity_metrics),
+            "clustering_insights": convert_numpy_types(clustering_insights),
+            "ml_library_usage": {
+                "sklearn_vectorization": "Used CountVectorizer for professional text vectorization",
+                "numpy_operations": "Leveraged NumPy for efficient statistical computations",
+                "matrix_operations": "Applied linear algebra for similarity analysis"
+            }
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Advanced analysis failed: {str(e)}"
+        )
 
 
 def _calculate_summary_stats(results: List[Dict[str, Any]]) -> Dict[str, Any]:

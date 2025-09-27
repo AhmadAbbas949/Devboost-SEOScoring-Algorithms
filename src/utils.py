@@ -6,6 +6,9 @@ import re
 import math
 from typing import List, Tuple, Dict
 from collections import Counter
+import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 def tokenize_text(text: str) -> Tuple[List[str], List[str]]:
@@ -122,67 +125,44 @@ def calculate_keyword_density(text: str, keywords: List[str]) -> dict:
     return keyword_densities
 
 
-def calculate_text_similarity_matrix(texts: List[str]) -> List[List[float]]:
+def calculate_text_similarity_matrix(texts: List[str]) -> np.ndarray:
     """
-    Calculate cosine similarity matrix for a list of texts.
+    Calculate cosine similarity matrix using scikit-learn for professional ML implementation.
 
     Args:
         texts: List of text strings to compare
 
     Returns:
-        2D list with similarity scores between all text pairs
+        NumPy array with similarity scores between all text pairs
     """
     if len(texts) < 2:
-        return [[1.0]]
+        return np.array([[1.0]])
 
-    # Convert texts to word vectors
-    word_vectors = []
-    for text in texts:
-        words, _ = tokenize_text(text)
-        word_count = Counter(words)
-        word_vectors.append(word_count)
+    # Handle empty texts gracefully
+    if not any(text.strip() for text in texts):
+        return np.zeros((len(texts), len(texts)))
 
-    # Calculate similarity matrix
-    similarity_matrix = []
-    for i in range(len(texts)):
-        row = []
-        for j in range(len(texts)):
-            if i == j:
-                row.append(1.0)
-            else:
-                sim = _cosine_similarity(word_vectors[i], word_vectors[j])
-                row.append(sim)
-        similarity_matrix.append(row)
+    try:
+        # Use scikit-learn's CountVectorizer for professional text vectorization
+        vectorizer = CountVectorizer(
+            lowercase=True,
+            stop_words='english',  # Remove common English stop words
+            token_pattern=r'\b[a-zA-Z]+\b',  # Only alphabetic tokens
+            max_features=1000,  # Limit feature space for efficiency
+            binary=False  # Use term frequency, not just binary presence
+        )
 
-    return similarity_matrix
+        # Transform texts to sparse matrix representation
+        text_vectors = vectorizer.fit_transform(texts)
 
+        # Calculate cosine similarity matrix using scikit-learn's optimized implementation
+        similarity_matrix = cosine_similarity(text_vectors)
 
-def _cosine_similarity(vec1: Counter, vec2: Counter) -> float:
-    """
-    Calculate cosine similarity between two word count vectors.
+        return similarity_matrix
 
-    Args:
-        vec1: First word count vector
-        vec2: Second word count vector
-
-    Returns:
-        Cosine similarity score between 0 and 1
-    """
-    # Get all unique words
-    all_words = set(vec1.keys()) | set(vec2.keys())
-
-    if not all_words:
-        return 0.0
-
-    # Calculate dot product and magnitudes
-    dot_product = sum(vec1.get(word, 0) * vec2.get(word, 0) for word in all_words)
-    magnitude1 = math.sqrt(sum(vec1.get(word, 0) ** 2 for word in all_words))
-    magnitude2 = math.sqrt(sum(vec2.get(word, 0) ** 2 for word in all_words))
-
-    if magnitude1 == 0 or magnitude2 == 0:
-        return 0.0
-
-    return dot_product / (magnitude1 * magnitude2)
+    except ValueError:
+        # Fallback for edge cases (all empty texts, no valid tokens, etc.)
+        return np.zeros((len(texts), len(texts)))
 
 
 def calculate_uniqueness_score(text: str, reference_texts: List[str]) -> float:
@@ -214,7 +194,7 @@ def calculate_uniqueness_score(text: str, reference_texts: List[str]) -> float:
 
 def normalize_score(score: float, min_val: float = 0.0, max_val: float = 1.0) -> float:
     """
-    Normalize a score to a 0-1 range.
+    Normalize a score to a 0-1 range using NumPy for numerical stability.
 
     Args:
         score: Input score to normalize
@@ -227,5 +207,77 @@ def normalize_score(score: float, min_val: float = 0.0, max_val: float = 1.0) ->
     if max_val == min_val:
         return 0.0
 
-    normalized = (score - min_val) / (max_val - min_val)
-    return max(0.0, min(1.0, normalized))
+    # Use NumPy for numerical stability and vectorized operations
+    normalized = np.divide(score - min_val, max_val - min_val)
+    return float(np.clip(normalized, 0.0, 1.0))
+
+
+def calculate_statistical_features(texts: List[str]) -> Dict[str, np.ndarray]:
+    """
+    Calculate advanced statistical features using NumPy for enhanced text analysis.
+
+    Args:
+        texts: List of text strings to analyze
+
+    Returns:
+        Dictionary containing various statistical measures as NumPy arrays
+    """
+    if not texts:
+        return {}
+
+    # Vectorized calculations using NumPy for performance
+    word_lengths = []
+    sentence_lengths = []
+    char_counts = []
+
+    for text in texts:
+        words, sentences = tokenize_text(text)
+        word_lengths.append([len(word) for word in words] if words else [0])
+        sentence_lengths.append(len(words) / max(len(sentences), 1))
+        char_counts.append(len(text))
+
+    # Convert to NumPy arrays for vectorized operations
+    features = {
+        'word_length_stats': {
+            'mean': np.array([np.mean(lengths) for lengths in word_lengths]),
+            'std': np.array([np.std(lengths) for lengths in word_lengths]),
+            'median': np.array([np.median(lengths) for lengths in word_lengths])
+        },
+        'sentence_lengths': np.array(sentence_lengths),
+        'char_counts': np.array(char_counts),
+        'text_complexity': np.array([
+            np.mean(lengths) * np.std(lengths) if len(lengths) > 1 else 0
+            for lengths in word_lengths
+        ])
+    }
+
+    return features
+
+
+def calculate_similarity_metrics(similarity_matrix: np.ndarray) -> Dict[str, float]:
+    """
+    Calculate advanced similarity metrics using NumPy linear algebra operations.
+
+    Args:
+        similarity_matrix: NumPy array of similarity scores
+
+    Returns:
+        Dictionary with various similarity metrics
+    """
+    if similarity_matrix.size == 0:
+        return {}
+
+    # Use NumPy for efficient matrix operations
+    # Exclude diagonal (self-similarity) for meaningful statistics
+    mask = ~np.eye(similarity_matrix.shape[0], dtype=bool)
+    off_diagonal = similarity_matrix[mask]
+
+    metrics = {
+        'mean_similarity': float(np.mean(off_diagonal)),
+        'max_similarity': float(np.max(off_diagonal)) if off_diagonal.size > 0 else 0.0,
+        'similarity_variance': float(np.var(off_diagonal)),
+        'similarity_std': float(np.std(off_diagonal)),
+        'duplicate_threshold_exceeded': int(np.sum(off_diagonal > 0.8))  # Count high similarities
+    }
+
+    return metrics
