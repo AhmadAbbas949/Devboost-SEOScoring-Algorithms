@@ -3,9 +3,7 @@ Utility functions for text processing and analysis.
 """
 
 import re
-import math
 from typing import List, Tuple, Dict
-from collections import Counter
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -192,24 +190,6 @@ def calculate_uniqueness_score(text: str, reference_texts: List[str]) -> float:
     return max(0.0, min(1.0, uniqueness))  # Clamp between 0 and 1
 
 
-def normalize_score(score: float, min_val: float = 0.0, max_val: float = 1.0) -> float:
-    """
-    Normalize a score to a 0-1 range using NumPy for numerical stability.
-
-    Args:
-        score: Input score to normalize
-        min_val: Minimum possible value
-        max_val: Maximum possible value
-
-    Returns:
-        Normalized score between 0 and 1
-    """
-    if max_val == min_val:
-        return 0.0
-
-    # Use NumPy for numerical stability and vectorized operations
-    normalized = np.divide(score - min_val, max_val - min_val)
-    return float(np.clip(normalized, 0.0, 1.0))
 
 
 def calculate_statistical_features(texts: List[str]) -> Dict[str, np.ndarray]:

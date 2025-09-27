@@ -68,6 +68,38 @@ class OptimalRangeScorer:
         else:  # value > max_optimal
             return max(0.0, 1.0 - (value - max_optimal) / (max_optimal * penalty_factor))
 
+    @staticmethod
+    def get_adaptive_keyword_thresholds(word_count: int) -> dict:
+        """
+        Get length-adaptive keyword density thresholds based on text length.
+
+        Args:
+            word_count: Number of words in the text
+
+        Returns:
+            Dictionary with adaptive min and max thresholds
+        """
+        ranges = QualityMetrics.KEYWORD_DENSITY_RANGES
+
+        if word_count <= ranges['very_short_text_threshold']:
+            return {
+                'optimal_min': ranges['optimal_min'],
+                'optimal_max': ranges['very_short_text_max'],
+                'context': 'very_short'
+            }
+        elif word_count <= ranges['short_text_threshold']:
+            return {
+                'optimal_min': ranges['optimal_min'],
+                'optimal_max': ranges['short_text_max'],
+                'context': 'short'
+            }
+        else:
+            return {
+                'optimal_min': ranges['optimal_min'],
+                'optimal_max': ranges['optimal_max'],
+                'context': 'normal'
+            }
+
 
 class QualityMetrics:
     """Centralized quality thresholds and calculations."""
@@ -81,7 +113,12 @@ class QualityMetrics:
     KEYWORD_DENSITY_RANGES = {
         'optimal_min': 2.0,
         'optimal_max': 8.0,
-        'penalty_factor': 1.5  # Stricter penalty for over-optimization
+        'penalty_factor': 1.5,  # Stricter penalty for over-optimization
+        # Length-adaptive thresholds for short texts
+        'short_text_threshold': 15,  # Words
+        'short_text_max': 20.0,  # Higher density allowed for short texts
+        'very_short_text_threshold': 8,  # Words
+        'very_short_text_max': 30.0  # Even higher for very short texts
     }
 
     # Weighted scoring for overall quality
@@ -121,20 +158,32 @@ class RecommendationEngine:
 
     @staticmethod
     def generate_keyword_recommendations(keyword_densities: Dict[str, float],
-                                       total_density: float, score: float) -> list:
-        """Generate keyword density specific recommendations."""
+                                       total_density: float, score: float,
+                                       adaptive_context: Dict = None) -> list:
+        """Generate keyword density specific recommendations with adaptive thresholds."""
         recommendations = []
-        ranges = QualityMetrics.KEYWORD_DENSITY_RANGES
+
+        # Use adaptive thresholds if provided, otherwise fall back to default
+        if adaptive_context:
+            max_threshold = adaptive_context.get('applied_max_threshold', 8.0)
+            text_category = adaptive_context.get('text_length_category', 'normal')
+        else:
+            ranges = QualityMetrics.KEYWORD_DENSITY_RANGES
+            max_threshold = ranges['optimal_max']
+            text_category = 'normal'
 
         if score < ScoreInterpreter.THRESHOLDS['good']:
-            if total_density < ranges['optimal_min']:
+            if total_density < QualityMetrics.KEYWORD_DENSITY_RANGES['optimal_min']:
                 missing_keywords = [kw for kw, density in keyword_densities.items() if density == 0]
                 if missing_keywords:
                     recommendations.append(
                         f"Consider including keywords: {', '.join(missing_keywords[:2])}"
                     )
-            elif total_density > ranges['optimal_max']:
-                recommendations.append("Reduce keyword repetition to avoid over-optimization")
+            elif total_density > max_threshold:
+                if text_category == 'normal':
+                    recommendations.append("Reduce keyword repetition to avoid over-optimization")
+                else:
+                    recommendations.append(f"Even for {text_category} text, reduce keyword density below {max_threshold}%")
 
         return recommendations
 

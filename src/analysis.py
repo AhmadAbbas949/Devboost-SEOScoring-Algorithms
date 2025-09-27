@@ -78,7 +78,7 @@ class TextAnalysisEngine:
 
     def calculate_keyword_density_score(self, text: str) -> Dict[str, Any]:
         """
-        Calculate keyword density scores for target keywords.
+        Calculate keyword density scores for target keywords with adaptive thresholds.
 
         Args:
             text: Input text to analyze
@@ -86,28 +86,48 @@ class TextAnalysisEngine:
         Returns:
             Dictionary with keyword densities and overall score
         """
+        from .utils import tokenize_text
+
         keyword_densities = calculate_keyword_density(text, self.target_keywords)
         total_density = sum(keyword_densities.values())
 
-        # Use centralized optimal range scoring
-        ranges = QualityMetrics.KEYWORD_DENSITY_RANGES
+        # Get word count for adaptive thresholds
+        words, _ = tokenize_text(text)
+        word_count = len(words)
+
+        # Use adaptive thresholds based on text length
+        adaptive_thresholds = OptimalRangeScorer.get_adaptive_keyword_thresholds(word_count)
+
         density_score = OptimalRangeScorer.score_with_optimal_range(
-            total_density, ranges['optimal_min'], ranges['optimal_max'], ranges['penalty_factor']
+            total_density,
+            adaptive_thresholds['optimal_min'],
+            adaptive_thresholds['optimal_max'],
+            QualityMetrics.KEYWORD_DENSITY_RANGES['penalty_factor']
         )
 
-        # Create context-aware interpretation
+        # Create context-aware interpretation with adaptive thresholds
         if density_score >= ScoreInterpreter.THRESHOLDS['good']:
-            interpretation = f"Optimal keyword usage ({total_density}%)"
-        elif total_density < ranges['optimal_min']:
+            context_note = f" (adapted for {adaptive_thresholds['context']} text)" if adaptive_thresholds['context'] != 'normal' else ""
+            interpretation = f"Optimal keyword usage ({total_density}%){context_note}"
+        elif total_density < adaptive_thresholds['optimal_min']:
             interpretation = f"Under-optimized keywords ({total_density}%)"
         else:
-            interpretation = f"Over-optimized keywords ({total_density}%)"
+            max_threshold = adaptive_thresholds['optimal_max']
+            if adaptive_thresholds['context'] != 'normal':
+                interpretation = f"Over-optimized keywords ({total_density}%) - even for {adaptive_thresholds['context']} text"
+            else:
+                interpretation = f"Over-optimized keywords ({total_density}%)"
 
         return {
             'keyword_densities': keyword_densities,
             'total_density': round(total_density, 2),
             'density_score': round(density_score, 3),
-            'interpretation': interpretation
+            'interpretation': interpretation,
+            'adaptive_context': {
+                'word_count': word_count,
+                'text_length_category': adaptive_thresholds['context'],
+                'applied_max_threshold': adaptive_thresholds['optimal_max']
+            }
         }
 
 
@@ -222,7 +242,8 @@ class TextAnalysisEngine:
         recommendations.extend(RecommendationEngine.generate_keyword_recommendations(
             keyword_density['keyword_densities'],
             keyword_density['total_density'],
-            keyword_density['density_score']
+            keyword_density['density_score'],
+            keyword_density.get('adaptive_context')
         ))
 
         uniqueness = analysis['uniqueness']
