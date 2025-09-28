@@ -371,32 +371,6 @@ async def root():
     - Uses custom keywords instead of defaults
     - All other analysis remains the same
 
-    ## **Response Format**
-
-    ```json
-    {
-      "results": [
-        {
-          "description": "Premium handcrafted leather bag with elegant design.",
-          "readability": {
-            "avg_word_length": 5.78,
-            "avg_sentence_length": 9.0
-          },
-          "keyword_density": {
-            "eco_friendly": 0.0,
-            "sustainable": 0.0,
-            "premium": 11.11,
-            "luxury": 0.0
-          },
-          "similarity": {
-            "uniqueness_score": 0.876,
-            "is_duplicate": false,
-            "max_similarity": 0.124
-          }
-        }
-      ]
-    }
-    ```
 
     ## **Technical Notes**
 
