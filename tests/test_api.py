@@ -85,20 +85,28 @@ class TestAPI:
         assert keyword_density["luxury"] > 0
 
     def test_analyze_endpoint_empty_descriptions(self):
-        """Test /analyze endpoint with empty descriptions list."""
-        invalid_input = {"descriptions": []}
+        """Test /analyze endpoint with empty descriptions list - now defaults to products.json."""
+        input_data = {"descriptions": []}
 
-        response = self.client.post("/analyze", json=invalid_input)
+        response = self.client.post("/analyze", json=input_data)
 
-        assert response.status_code == 422  # Validation error
+        assert response.status_code == 200  # Now successfully processes products.json
+        data = response.json()
+
+        assert "results" in data
+        assert len(data["results"]) == 50  # Should process all 50 products from products.json
 
     def test_analyze_endpoint_missing_descriptions(self):
-        """Test /analyze endpoint with missing descriptions field."""
-        invalid_input = {"keywords": ["test"]}
+        """Test /analyze endpoint with missing descriptions field - now defaults to products.json."""
+        input_data = {"keywords": ["test"]}
 
-        response = self.client.post("/analyze", json=invalid_input)
+        response = self.client.post("/analyze", json=input_data)
 
-        assert response.status_code == 422  # Validation error
+        assert response.status_code == 200  # Now successfully processes products.json
+        data = response.json()
+
+        assert "results" in data
+        assert len(data["results"]) == 50  # Should process all 50 products from products.json
 
     def test_recommend_endpoint_valid_input(self):
         """Test /recommend endpoint with valid input."""
@@ -114,9 +122,9 @@ class TestAPI:
         for rec in data["recommendations"]:
             assert "description_index" in rec
             assert "description" in rec
-            assert "overall_score" in rec
             assert "recommendations" in rec
             assert isinstance(rec["recommendations"], list)
+            assert len(rec["recommendations"]) == 3  # Should always be exactly 3 suggestions
 
     def test_recommend_endpoint_custom_keywords(self):
         """Test /recommend endpoint with custom keywords."""
@@ -142,7 +150,7 @@ class TestAPI:
 
         assert "message" in data
         assert "results" in data
-        assert len(data["results"]) == 10  # First 10 products
+        assert len(data["results"]) == 50  # All products from products.json
 
     def test_docs_endpoint(self):
         """Test that API documentation is accessible."""

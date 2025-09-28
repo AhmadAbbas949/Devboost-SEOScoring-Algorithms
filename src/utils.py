@@ -46,8 +46,9 @@ def calculate_average_word_length(words: List[str]) -> float:
     if not words:
         return 0.0
 
-    total_length = sum(len(word) for word in words)
-    return total_length / len(words)
+    # Optimized with NumPy vectorized operations
+    word_lengths = np.array([len(word) for word in words])
+    return float(np.mean(word_lengths))
 
 
 def calculate_average_sentence_length(sentences: List[str]) -> float:
@@ -63,12 +64,9 @@ def calculate_average_sentence_length(sentences: List[str]) -> float:
     if not sentences:
         return 0.0
 
-    total_words = 0
-    for sentence in sentences:
-        words, _ = tokenize_text(sentence)
-        total_words += len(words)
-
-    return total_words / len(sentences)
+    # Optimized with vectorized word counting
+    sentence_word_counts = np.array([len(tokenize_text(sentence)[0]) for sentence in sentences])
+    return float(np.mean(sentence_word_counts))
 
 
 def count_keyword_occurrences(text: str, keywords: List[str]) -> dict:
@@ -190,74 +188,241 @@ def calculate_uniqueness_score(text: str, reference_texts: List[str]) -> float:
     return max(0.0, min(1.0, uniqueness))  # Clamp between 0 and 1
 
 
-
-
-def calculate_statistical_features(texts: List[str]) -> Dict[str, np.ndarray]:
+class AdvancedDuplicateDetector:
     """
-    Calculate advanced statistical features using NumPy for enhanced text analysis.
+    Professional ML-powered duplicate detection using advanced scikit-learn techniques.
+
+    Optimizes the manual similarity processing with:
+    - NearestNeighbors for efficient similarity queries
+    - AgglomerativeClustering for automatic grouping
+    - Vectorized operations for performance
+    """
+
+    def __init__(self, similarity_threshold: float = 0.79, min_similarity_for_pairs: float = 0.1):
+        """
+        Initialize the duplicate detector.
+
+        Args:
+            similarity_threshold: Threshold for marking items as duplicates
+            min_similarity_for_pairs: Minimum similarity to create a duplicate pair
+        """
+        self.similarity_threshold = similarity_threshold
+        self.min_similarity_for_pairs = min_similarity_for_pairs
+        self.similarity_matrix = None
+
+    def analyze_duplicates(self, texts: List[str], metadata: List[Dict] = None) -> Dict:
+        """
+        Advanced duplicate analysis using scikit-learn optimizations.
+
+        Args:
+            texts: List of text descriptions to analyze
+            metadata: Optional metadata (e.g., product info) for each text
+
+        Returns:
+            Dictionary with duplicate analysis results
+        """
+        from sklearn.neighbors import NearestNeighbors
+        from sklearn.cluster import AgglomerativeClustering
+
+        if len(texts) < 2:
+            # For single text, create a 1x1 identity matrix
+            self.similarity_matrix = np.array([[1.0]]) if texts else np.array([])
+            return {
+                'duplicate_indices': [],
+                'duplicate_pairs': [],
+                'similarity_scores': [0.0] if texts else [],
+                'uniqueness_scores': [1.0] if texts else [],
+                'similarity_matrix': self.similarity_matrix
+            }
+
+        # Calculate similarity matrix using existing optimized function
+        self.similarity_matrix = calculate_text_similarity_matrix(texts)
+
+        # Method 1: Vectorized similarity analysis (replaces manual loops)
+        duplicate_indices, similarity_scores, uniqueness_scores = self._vectorized_duplicate_analysis()
+
+        # Method 2: Advanced duplicate pair detection using NearestNeighbors
+        duplicate_pairs = self._find_duplicate_pairs_ml(texts, metadata)
+
+        return {
+            'duplicate_indices': duplicate_indices,
+            'duplicate_pairs': duplicate_pairs,
+            'similarity_scores': similarity_scores,
+            'uniqueness_scores': uniqueness_scores,
+            'similarity_matrix': self.similarity_matrix
+        }
+
+    def _vectorized_duplicate_analysis(self) -> Tuple[List[int], List[float], List[float]]:
+        """
+        Vectorized analysis replacing manual similarity processing.
+        Uses NumPy operations instead of loops for better performance.
+        """
+        n_texts = self.similarity_matrix.shape[0]
+
+        # Create mask to exclude diagonal (self-similarity)
+        mask = ~np.eye(n_texts, dtype=bool)
+
+        # Vectorized maximum similarity calculation
+        masked_similarities = np.where(mask, self.similarity_matrix, -1)
+        max_similarities = np.max(masked_similarities, axis=1)
+
+        # Vectorized duplicate detection
+        duplicate_mask = max_similarities >= self.similarity_threshold
+        duplicate_indices = np.where(duplicate_mask)[0].tolist()
+
+        # Calculate uniqueness scores
+        uniqueness_scores = (1.0 - max_similarities).tolist()
+
+        return duplicate_indices, max_similarities.tolist(), uniqueness_scores
+
+    def _find_duplicate_pairs_ml(self, texts: List[str], metadata: List[Dict] = None) -> List[Dict]:
+        """
+        Advanced duplicate pair detection using NearestNeighbors.
+        Replaces manual pair tracking with ML-optimized approach.
+        """
+        from sklearn.neighbors import NearestNeighbors
+
+        # Use similarity matrix as feature space for NearestNeighbors
+        # Convert similarity to distance: distance = 1 - similarity
+        # Clamp negative similarities to 0 to avoid negative distances
+        clamped_similarities = np.clip(self.similarity_matrix, 0.0, 1.0)
+        distance_matrix = 1.0 - clamped_similarities
+
+        # Initialize NearestNeighbors with precomputed distance matrix
+        nn = NearestNeighbors(
+            n_neighbors=min(3, len(texts)),  # Find top 2 nearest neighbors (excluding self)
+            metric='precomputed'
+        )
+        nn.fit(distance_matrix)
+
+        # Find nearest neighbors for each text
+        distances, indices = nn.kneighbors(distance_matrix)
+
+        duplicate_pairs = []
+        processed_pairs = set()  # Track processed pairs to avoid duplicates
+
+        for i, (neighbor_distances, neighbor_indices) in enumerate(zip(distances, indices)):
+            # Skip self (first neighbor is always self with distance 0)
+            for j in range(1, len(neighbor_indices)):
+                neighbor_idx = neighbor_indices[j]
+                similarity = 1.0 - neighbor_distances[j]  # Convert back to similarity
+
+                if similarity >= self.similarity_threshold and similarity > self.min_similarity_for_pairs:
+                    # Create ordered pair to avoid duplicates (smaller index first)
+                    pair_key = (min(i, neighbor_idx), max(i, neighbor_idx))
+
+                    if pair_key not in processed_pairs:
+                        processed_pairs.add(pair_key)
+
+                        # Create pair information
+                        pair_info = {
+                            'indices': [i, neighbor_idx],
+                            'similarity': round(similarity, 3)
+                        }
+
+                        # Add metadata if provided
+                        if metadata:
+                            pair_info.update({
+                                'product_1': {
+                                    'id': metadata[i].get('id', i),
+                                    'title': metadata[i].get('title', f'Text {i+1}')
+                                },
+                                'product_2': {
+                                    'id': metadata[neighbor_idx].get('id', neighbor_idx),
+                                    'title': metadata[neighbor_idx].get('title', f'Text {neighbor_idx+1}')
+                                }
+                            })
+
+                        duplicate_pairs.append(pair_info)
+
+        return duplicate_pairs
+
+    def cluster_similar_texts(self, texts: List[str], n_clusters: int = None) -> Dict:
+        """
+        Advanced clustering of similar texts using AgglomerativeClustering.
+        Provides additional insights beyond simple duplicate detection.
+        """
+        from sklearn.cluster import AgglomerativeClustering
+
+        if len(texts) < 2:
+            return {'cluster_labels': [0] if texts else [], 'n_clusters': 1 if texts else 0}
+
+        # Convert similarity to distance for clustering
+        # Clamp negative similarities to 0 to avoid negative distances
+        clamped_similarities = np.clip(self.similarity_matrix, 0.0, 1.0)
+        distance_matrix = 1.0 - clamped_similarities
+
+        # Determine optimal number of clusters if not specified
+        if n_clusters is None:
+            # Use a heuristic: aim for clusters with average similarity > threshold
+            n_clusters = max(1, int(len(texts) * (1 - self.similarity_threshold)))
+
+        # Perform hierarchical clustering
+        clustering = AgglomerativeClustering(
+            n_clusters=min(n_clusters, len(texts)),
+            metric='precomputed',
+            linkage='average'
+        )
+
+        cluster_labels = clustering.fit_predict(distance_matrix)
+
+        return {
+            'cluster_labels': cluster_labels.tolist(),
+            'n_clusters': len(set(cluster_labels)),
+            'clusters_info': self._analyze_clusters(cluster_labels, texts)
+        }
+
+    def _analyze_clusters(self, cluster_labels: np.ndarray, texts: List[str]) -> List[Dict]:
+        """Analyze cluster composition and statistics."""
+        clusters_info = []
+        unique_labels = set(cluster_labels)
+
+        for label in unique_labels:
+            cluster_indices = np.where(cluster_labels == label)[0]
+            cluster_size = len(cluster_indices)
+
+            # Optimized intra-cluster similarity calculation using NumPy advanced indexing
+            if cluster_size > 1:
+                # Use NumPy advanced indexing to get all pairwise similarities at once
+                cluster_similarity_submatrix = self.similarity_matrix[np.ix_(cluster_indices, cluster_indices)]
+
+                # Extract upper triangle (excluding diagonal) for pairwise similarities
+                upper_triangle_mask = np.triu(np.ones_like(cluster_similarity_submatrix, dtype=bool), k=1)
+                cluster_similarities = cluster_similarity_submatrix[upper_triangle_mask]
+
+                avg_similarity = float(np.mean(cluster_similarities))
+            else:
+                avg_similarity = 1.0
+
+            clusters_info.append({
+                'cluster_id': int(label),
+                'size': int(cluster_size),
+                'indices': cluster_indices.tolist(),
+                'avg_intra_similarity': round(avg_similarity, 3),
+                'is_duplicate_cluster': avg_similarity >= self.similarity_threshold
+            })
+
+        return clusters_info
+
+
+def analyze_duplicates_advanced(texts: List[str], metadata: List[Dict] = None,
+                              similarity_threshold: float = 0.79) -> Dict:
+    """
+    Convenience function for advanced duplicate detection.
 
     Args:
-        texts: List of text strings to analyze
+        texts: List of text descriptions
+        metadata: Optional metadata for each text
+        similarity_threshold: Threshold for duplicate detection
 
     Returns:
-        Dictionary containing various statistical measures as NumPy arrays
+        Complete duplicate analysis results
     """
-    if not texts:
-        return {}
+    detector = AdvancedDuplicateDetector(similarity_threshold=similarity_threshold)
+    results = detector.analyze_duplicates(texts, metadata)
 
-    # Vectorized calculations using NumPy for performance
-    word_lengths = []
-    sentence_lengths = []
-    char_counts = []
+    # Add clustering analysis for additional insights
+    clustering_results = detector.cluster_similar_texts(texts)
+    results['clustering'] = clustering_results
 
-    for text in texts:
-        words, sentences = tokenize_text(text)
-        word_lengths.append([len(word) for word in words] if words else [0])
-        sentence_lengths.append(len(words) / max(len(sentences), 1))
-        char_counts.append(len(text))
-
-    # Convert to NumPy arrays for vectorized operations
-    features = {
-        'word_length_stats': {
-            'mean': np.array([np.mean(lengths) for lengths in word_lengths]),
-            'std': np.array([np.std(lengths) for lengths in word_lengths]),
-            'median': np.array([np.median(lengths) for lengths in word_lengths])
-        },
-        'sentence_lengths': np.array(sentence_lengths),
-        'char_counts': np.array(char_counts),
-        'text_complexity': np.array([
-            np.mean(lengths) * np.std(lengths) if len(lengths) > 1 else 0
-            for lengths in word_lengths
-        ])
-    }
-
-    return features
-
-
-def calculate_similarity_metrics(similarity_matrix: np.ndarray) -> Dict[str, float]:
-    """
-    Calculate advanced similarity metrics using NumPy linear algebra operations.
-
-    Args:
-        similarity_matrix: NumPy array of similarity scores
-
-    Returns:
-        Dictionary with various similarity metrics
-    """
-    if similarity_matrix.size == 0:
-        return {}
-
-    # Use NumPy for efficient matrix operations
-    # Exclude diagonal (self-similarity) for meaningful statistics
-    mask = ~np.eye(similarity_matrix.shape[0], dtype=bool)
-    off_diagonal = similarity_matrix[mask]
-
-    metrics = {
-        'mean_similarity': float(np.mean(off_diagonal)),
-        'max_similarity': float(np.max(off_diagonal)) if off_diagonal.size > 0 else 0.0,
-        'similarity_variance': float(np.var(off_diagonal)),
-        'similarity_std': float(np.std(off_diagonal)),
-        'duplicate_threshold_exceeded': int(np.sum(off_diagonal > 0.8))  # Count high similarities
-    }
-
-    return metrics
+    return results
