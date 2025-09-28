@@ -281,7 +281,7 @@ async def root():
     description="""
     Analyze product descriptions using 3 core metrics with detailed computation methods:
 
-    ## 📊 **Metric 1: Readability Analysis**
+    ## **Metric 1: Readability Analysis**
 
     **Average Word Length:**
     - **Formula:** `sum(len(word) for word in words) / total_words`
@@ -295,7 +295,7 @@ async def root():
     - **Units:** Words per sentence
     - **Example:** "Great product. Buy now!" → sentences=2, words=4 → avg=2.0 words/sentence
 
-    ## 🔍 **Metric 2: Keyword Density Analysis**
+    ## **Metric 2: Keyword Density Analysis**
 
     **Target Keywords:** ["eco-friendly", "sustainable", "premium", "luxury"]
 
@@ -312,7 +312,7 @@ async def root():
     - **Short (≤15 words):** Up to 20% density allowed
     - **Normal (>15 words):** 2-8% optimal density range
 
-    ## 🎯 **Metric 3: Uniqueness/Duplicate Detection**
+    ## **Metric 3: Uniqueness/Duplicate Detection**
 
     **Method:** Professional ML using scikit-learn CountVectorizer + cosine similarity
 
@@ -338,7 +338,7 @@ async def root():
     - **Cross-Comparison:** Each description compared against all others in set
     - **Duplicate Pairs:** Automatically detected using NearestNeighbors algorithm
 
-    ## 📋 **Input Modes & Examples**
+    ## **Input Modes & Examples**
 
     ### **Mode 1: Default Analysis (Recommended)**
     ```json
@@ -371,7 +371,7 @@ async def root():
     - Uses custom keywords instead of defaults
     - All other analysis remains the same
 
-    ## 📊 **Response Format**
+    ## **Response Format**
 
     ```json
     {
@@ -398,7 +398,7 @@ async def root():
     }
     ```
 
-    ## 🔬 **Technical Notes**
+    ## **Technical Notes**
 
     - **Performance:** Optimized ML pipeline using scikit-learn + NumPy
     - **Vectorization:** TF (term frequency) vectors with 1000 max features
@@ -407,7 +407,7 @@ async def root():
     - **Memory Efficient:** Advanced NumPy indexing for similarity matrices
     - **Scalable:** Handles 1-50+ descriptions efficiently
 
-    ## 📈 **Output Guarantees**
+    ## **Output Guarantees**
 
     - **Readability:** Always returns avg_word_length and avg_sentence_length
     - **Keywords:** Always returns density for all 4 target keywords (0.0 if not found)
@@ -505,14 +505,14 @@ async def get_recommendations(input_data: ProductInput):
     """
     Generate exactly 3 specific improvement recommendations using intelligent analysis algorithms:
 
-    ## 🤖 **Recommendation Engine Architecture**
+    ## **Recommendation Engine Architecture**
 
     **Core Principle:** Each description receives **exactly 3 suggestions** based on systematic analysis of:
     1. **Readability metrics** (word/sentence length optimization)
     2. **Keyword density analysis** (context-aware SEO optimization)
     3. **Uniqueness assessment** (duplicate prevention & differentiation)
 
-    ## 📊 **Analysis Process**
+    ## **Analysis Process**
 
     ### **Step 1: Readability Analysis**
     - **Word Length Formula:** `sum(len(word) for word in words) / total_words`
@@ -529,7 +529,7 @@ async def get_recommendations(input_data: ProductInput):
     - **Duplicate Threshold:** ≥79% similarity
     - **Cross-Comparison:** Against entire dataset for uniqueness
 
-    ## 🧠 **Intelligent Recommendation Logic**
+    ## **Intelligent Recommendation Logic**
 
     ### **1. Readability Suggestions (Always 1)**
     ```python
@@ -584,7 +584,7 @@ async def get_recommendations(input_data: ProductInput):
         suggestion = "Add specific product benefits or features"
     ```
 
-    ## 📋 **Input Modes & Examples**
+    ## **Input Modes & Examples**
 
     ### **Mode 1: Default Analysis (Products.json)**
     ```json
@@ -644,7 +644,7 @@ async def get_recommendations(input_data: ProductInput):
     }
     ```
 
-    ## 🎯 **Decision Thresholds**
+    ## **Decision Thresholds**
 
     **Readability Optimization:**
     - **Target Word Length:** 4-6 characters (e-commerce optimal)
@@ -663,7 +663,7 @@ async def get_recommendations(input_data: ProductInput):
     - **Moderate Similarity:** 40-60% → unique selling points suggestion
     - **Unique Content:** <40% → benefits/features enhancement
 
-    ## 🔬 **Technical Implementation**
+    ## **Technical Implementation**
 
     **Analysis Pipeline:**
     1. Load descriptions (products.json or custom)
@@ -678,7 +678,7 @@ async def get_recommendations(input_data: ProductInput):
     - **Memory Efficient:** Advanced indexing for large catalogs
     - **Scalable:** Handles 1-50+ products efficiently
 
-    ## 📈 **Output Guarantees**
+    ## **Output Guarantees**
 
     - **Exactly 3 Suggestions:** Never more, never less per description
     - **Context-Aware:** Suggestions adapt to product type and content
