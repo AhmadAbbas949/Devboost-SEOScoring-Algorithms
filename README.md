@@ -178,7 +178,7 @@ devboost-app/
 
    - Professional scikit-learn text vectorization
    - NumPy-powered statistical operations
-   - **Cleaned imports**: Removed unused `math` and `Counter`
+   - **Cleaned imports**: Removed unused imports
    - **Removed unused functions**: Eliminated dead code
 
 5. **🌐 REST API (`api.py`)**
